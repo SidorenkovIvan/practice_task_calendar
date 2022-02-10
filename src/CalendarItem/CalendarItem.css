@@ -1,0 +1,15 @@
+.calendar-item {
+    height: 10rem;
+    border: 1px solid #d3d3d3;
+}
+
+.calendar-item__date {
+    line-height: 0;
+    padding-left: 0.5rem;
+    color: #808080;
+}
+
+.calendar-item__text {
+    padding: 0 10px;
+    overflow: hidden;
+}
