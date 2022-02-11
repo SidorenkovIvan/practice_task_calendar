@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "./Calendar.css"
 import CalendarItem from "../CalendarItem/CalendarItem";
 
@@ -12,43 +12,19 @@ const DAYS_OF_MONTH = {
     6: "Sunday"
 };
 
-const EVENTS = [
-    {
-        title: "Meeting on Bolotnaya",
-        date: "2/10/2022",
-        members: "Volodya, Dima",
-        description: ""
-    },
-    {
-        title: "Birthday",
-        date: "2/24/2022",
-        members: "German, Artiom",
-        description: "Drink!"
-    },
-    {
-        title: "Drive to bar",
-        date: "2/2/2022",
-        members: "German, Artiom, Alexandr",
-        description: ""
-    }
-]
-
 const Calendar = (props) => {
-    const [events, setEvent] = useState(EVENTS);
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
     const firstDayMonth = new Date(year, month, 1).getDay();
     let lastMonthDays = [];
 
-    const onAddEventHandler = (event) => {
-        setEvent((prevEvents) => {
-            return [event, ...prevEvents];
-        })
-    }
+    const saveEventDataHandler = (enteredEvent) => {
+        props.onSaveEventData(enteredEvent);
+    };
 
     if (firstDayMonth !== 1) {
         const daysInLastMonth = daysInMonth(month - 1, year);
-        let mondayLastWeekOfLastMonth = daysInLastMonth - (new Date(year, month - 1, daysInLastMonth).getDay());
+        let mondayLastWeekOfLastMonth = daysInLastMonth - (new Date(year, month - 1, daysInLastMonth).getDay()) + 1;
 
         for (let i = mondayLastWeekOfLastMonth; i <= daysInLastMonth; i++) {
             lastMonthDays.push(i);
@@ -61,20 +37,21 @@ const Calendar = (props) => {
 
     return (
         <div className="calendar-grid">
-            {calendarArray.concat(nextMonthDays).map((item, index) => <CalendarItem
-                day={item}
-                month={month}
-                year={year}
-                key={Math.random()}
-                dayOfMonth={index < 7 ? DAYS_OF_MONTH[index] : ""}
-                events={EVENTS}
-                onAddEvent={onAddEventHandler}
-            />)}
+            {calendarArray.concat(nextMonthDays).map((item, index) =>
+                <CalendarItem
+                    day={item}
+                    month={month}
+                    year={year}
+                    key={Math.random()}
+                    dayOfMonth={index < 7 ? DAYS_OF_MONTH[index] : ""}
+                    events={props.items}
+                    onSaveEvent={saveEventDataHandler}
+                />)}
         </div>
     )
 };
 
-function daysInMonth(month, year) {
+const daysInMonth = (month, year) => {
     return new Date(year, month + 1, 0).getDate();
 }
 

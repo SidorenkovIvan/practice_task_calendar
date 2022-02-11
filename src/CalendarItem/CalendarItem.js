@@ -6,7 +6,7 @@ const CalendarItem = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const saveDataEditingHandler = (enteredEvent) => {
-        props.onAddEvent(enteredEvent);
+        props.onSaveEvent(enteredEvent);
         setIsEditing(false);
     }
 
@@ -29,13 +29,14 @@ const CalendarItem = (props) => {
         }
     }
 
-    return (
-        <div className="calendar-item" onClick={startEditingHandler} style={title ? {
+    return ( //Should divide bu components
+        <div className="calendar-item" style={title ? {
             backgroundColor: "cornflowerblue",
             border: "1px solid blue"
         } : {backgroundColor: "white"}}>
-            {!isEditing && (
-                <div>
+            {
+                !isEditing && (
+                <div onClick={startEditingHandler}>
                     <p className="calendar-item__date">
                         {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
                         {props.day}
@@ -46,7 +47,8 @@ const CalendarItem = (props) => {
                     </div>
                 </div>
             )}
-            {isEditing && (
+            {
+                isEditing && (
                 <div>
                     <p className="calendar-item__date">
                         {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
@@ -57,6 +59,9 @@ const CalendarItem = (props) => {
                         <p>{members}</p>
                     </div>
                     <CalendarItemChange
+                        year={props.year}
+                        month={props.month}
+                        day={props.day}
                         title={title}
                         members={members}
                         description={description}

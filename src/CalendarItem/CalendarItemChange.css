@@ -1,0 +1,52 @@
+.calendar-item-change__form {
+    position: absolute;
+    min-height: 15rem;
+    min-width: 20rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+    top: 0;
+    z-index: 1;
+}
+
+.calendar-item-change__form__inputs {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: 0.5rem auto;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    padding: 5px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+    outline: none;
+}
+
+.calendar-item-change__button__close {
+    border: none;
+    background-image: url(/public/close.png);
+    padding: 1rem 1rem;
+    margin-top: 0.5rem;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    height: 16px;
+    vertical-align: middle;
+    float: right;
+}
+
+.calendar-item-change__form__actions {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    padding: 1.5rem 1rem;
+}
+
+.calendar-item-change__form__actions__buttons {
+    margin: 0 0.5rem;
+    background-color: #d3d3d3;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
