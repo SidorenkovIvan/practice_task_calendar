@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "./CalendarItemChange.css";
+import styles from "./CalendarItemChange.module.css";
 
 const CalendarItemChange = (props) => {
     const [enteredTitle, setEnteredTitle] = useState(props.title.toString());
@@ -32,19 +32,16 @@ const CalendarItemChange = (props) => {
         props.onSaveData(addingEvent);
     }
 
-    return (
+    return ( //Delete handlers (submit)
         <form onSubmit={submitHandler}>
-            <div className="calendar-item-change__form">
-                <button className="calendar-item-change__button__close" type="button" onClick={props.onCancel}/>
-                <input className="calendar-item-change__form__inputs" type="text"
-                       value={enteredTitle} placeholder="Title" onChange={titleChangeHandler}/>
-                <input className="calendar-item-change__form__inputs" type="text"
-                       value={enteredMembers} placeholder="Members" onChange={membersChangeHandler}/>
-                <input className="calendar-item-change__form__inputs description" type="text"
-                       value={enteredDescription} placeholder="Description" onChange={descriptionChangeHandler}/>
-                <div className="calendar-item-change__form__actions">
-                    <button className="calendar-item-change__form__actions__buttons" type="submit">Ready</button>
-                    <button className="calendar-item-change__form__actions__buttons">Delete</button>
+            <div className={styles.form}>
+                <button className={styles['button-close']} type="button" onClick={props.onCancel}/>
+                <input type="text" value={enteredTitle} placeholder="Title" onChange={titleChangeHandler}/>
+                <input type="text" value={enteredMembers} placeholder="Members" onChange={membersChangeHandler}/>
+                <input type="text" value={enteredDescription} placeholder="Description" onChange={descriptionChangeHandler}/>
+                <div className={styles.actions}>
+                    <button type="submit">Ready</button>
+                    <button>Delete</button>
                 </div>
             </div>
         </form>

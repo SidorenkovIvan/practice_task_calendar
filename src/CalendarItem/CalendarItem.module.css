@@ -1,16 +1,22 @@
-.calendar-item {
+.item {
     position: relative;
     height: 10rem;
     border: 1px solid #d3d3d3;
+    cursor: pointer;
 }
 
-.calendar-item__date {
+.item.not-empty {
+    background-color: cornflowerblue;
+    border: 1px solid blue
+}
+
+.item-date {
     line-height: 0;
     padding-left: 0.5rem;
     color: #808080;
 }
 
-.calendar-item__text {
+.item-text {
     padding: 0 10px;
     overflow: hidden;
 }

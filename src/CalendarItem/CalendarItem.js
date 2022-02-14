@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "./CalendarItem.css"
+import styles from "./CalendarItem.module.css"
 import CalendarItemChange from "./CalendarItemChange";
 
 const CalendarItem = (props) => {
@@ -29,32 +29,30 @@ const CalendarItem = (props) => {
         }
     }
 
-    return ( //Should divide bu components
-        <div className="calendar-item" style={title ? {
-            backgroundColor: "cornflowerblue",
-            border: "1px solid blue"
-        } : {backgroundColor: "white"}}>
-            {
-                !isEditing && (
-                <div onClick={startEditingHandler}>
-                    <p className="calendar-item__date">
-                        {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
-                        {props.day}
-                    </p>
-                    <div className="calendar-item__text">
-                        <p>{title}</p>
-                        <p>{members}</p>
+    return ( //Should divide by components
+        <div>
+            {!isEditing && (
+                <div className={`${styles.item} ${title && styles['not-empty']}`}
+                     onClick={startEditingHandler}>
+                    <div>
+                        <p className={styles['item-date']}>
+                            {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
+                            {props.day}
+                        </p>
+                        <div className={styles['item-text']}>
+                            <p>{title}</p>
+                            <p>{members}</p>
+                        </div>
                     </div>
                 </div>
             )}
-            {
-                isEditing && (
-                <div>
-                    <p className="calendar-item__date">
+            {isEditing && (
+                <div className={`${styles.item} ${title && styles['not-empty']}`}>
+                    <p className={styles['item-date']}>
                         {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
                         {props.day}
                     </p>
-                    <div className="calendar-item__text">
+                    <div className={styles['item-text']}>
                         <p>{title}</p>
                         <p>{members}</p>
                     </div>

@@ -1,9 +1,9 @@
 import React from "react";
-import "./CalendarDate.css";
+import styles from "./CalendarDate.module.css";
 
 const CalendarDate = (props) => {
     return (
-        <div className="calendar-date">
+        <div className={styles.date}>
             <button></button>
             <p>Month Year</p>
             <button></button>

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Calendar.css"
+import styles from "./Calendar.module.css"
 import CalendarItem from "../CalendarItem/CalendarItem";
 
 const DAYS_OF_MONTH = {
@@ -36,7 +36,7 @@ const Calendar = (props) => {
     const nextMonthDays = [...new Array(7 - calendarArray.length % 7)].map((day, index) => index + 1);
 
     return (
-        <div className="calendar-grid">
+        <div className={styles.grid}>
             {calendarArray.concat(nextMonthDays).map((item, index) =>
                 <CalendarItem
                     day={item}

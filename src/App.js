@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import './App.css';
-import CalendarMain from "./CalendarMain/CalendarMain";
+import styles from'./App.module.css';
 import CalendarHeader from "./CalendarHeader/CalendarHeader";
+import CalendarDate from "./CalendarMain/CalendarDate";
+import Calendar from "./CalendarMain/Calendar";
 
 const INITIAL_EVENTS = [
     {
@@ -36,7 +37,10 @@ function App() {
     return (
         <div>
             <CalendarHeader/>
-            <CalendarMain items={events} onAddEvent={addEventHandler}/>
+            <div className={styles.calendar}>
+                <CalendarDate/>
+                <Calendar items={events} onSaveEventData={addEventHandler}/>
+            </div>
         </div>
     );
 }
