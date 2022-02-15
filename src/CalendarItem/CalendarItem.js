@@ -10,6 +10,11 @@ const CalendarItem = (props) => {
         setIsEditing(false);
     }
 
+    const deleteDataEditingHandler = (enteredEvent) => {
+        props.onDeleteEvent(enteredEvent);
+        setIsEditing(false);
+    }
+
     const startEditingHandler = () => {
         setIsEditing(true);
     }
@@ -30,24 +35,24 @@ const CalendarItem = (props) => {
     }
 
     return ( //Should divide by components
-        <div>
+        <React.Fragment>
             {!isEditing && (
                 <div className={`${styles.item} ${title && styles['not-empty']}`}
                      onClick={startEditingHandler}>
-                    <div>
-                        <p className={styles['item-date']}>
-                            {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
-                            {props.day}
-                        </p>
-                        <div className={styles['item-text']}>
-                            <p>{title}</p>
-                            <p>{members}</p>
-                        </div>
+                    <p className={styles['item-date']}>
+                        {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
+                        {props.day}
+                    </p>
+                    <div className={styles['item-text']}>
+                        <p>{title}</p>
+                        <p>{members}</p>
                     </div>
                 </div>
             )}
             {isEditing && (
-                <div className={`${styles.item} ${title && styles['not-empty']}`}>
+                <div className={`${styles.item} 
+                ${title && styles['not-empty']} 
+                ${!title && isEditing && styles.clicked}`}>
                     <p className={styles['item-date']}>
                         {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
                         {props.day}
@@ -64,11 +69,12 @@ const CalendarItem = (props) => {
                         members={members}
                         description={description}
                         onSaveData={saveDataEditingHandler}
+                        onDeleteData={deleteDataEditingHandler}
                         onCancel={stopEditingHandler}
                     />
                 </div>
             )}
-        </div>
+        </React.Fragment>
     );
 };
 

@@ -6,8 +6,13 @@
 }
 
 .item.not-empty {
-    background-color: cornflowerblue;
-    border: 1px solid blue
+    background-color: #ccffff;
+    border: 1px solid #66b2ff;
+}
+
+.item.clicked {
+    background-color: #ccffff;
+    border: 1px solid #66b2ff;
 }
 
 .item-date {

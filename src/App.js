@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import styles from'./App.module.css';
+import styles from './App.module.css';
 import CalendarHeader from "./CalendarHeader/CalendarHeader";
-import CalendarDate from "./CalendarMain/CalendarDate";
 import Calendar from "./CalendarMain/Calendar";
 
 const INITIAL_EVENTS = [
@@ -9,19 +8,22 @@ const INITIAL_EVENTS = [
         title: "Meeting on Bolotnaya",
         date: "2/10/2022",
         members: "Volodya, Dima",
-        description: ""
+        description: "",
+        key: "2/10/2022"
     },
     {
         title: "Birthday",
         date: "2/24/2022",
         members: "German, Artiom",
-        description: "Drink!"
+        description: "Drink!",
+        key: "2/24/2022"
     },
     {
-        title: "Drive to bar",
+        title: "Work",
         date: "2/2/2022",
         members: "German, Artiom, Alexandr",
-        description: ""
+        description: "",
+        key: "2/2/2022"
     }
 ];
 
@@ -34,14 +36,22 @@ function App() {
         });
     }
 
+    const deleteEventHandler = (event) => {
+        setEvent((prevEvents) => {
+            return prevEvents.filter((item) => item.date !== event.date);
+        });
+    }
+
     return (
-        <div>
-            <CalendarHeader/>
+        <React.Fragment>
+            <CalendarHeader items={events}/>
             <div className={styles.calendar}>
-                <CalendarDate/>
-                <Calendar items={events} onSaveEventData={addEventHandler}/>
+                <Calendar
+                    items={events}
+                    onSaveEventData={addEventHandler}
+                    onDeleteEvent={deleteEventHandler}/>
             </div>
-        </div>
+        </React.Fragment>
     );
 }
 

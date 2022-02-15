@@ -22,6 +22,10 @@ const Calendar = (props) => {
         props.onSaveEventData(enteredEvent);
     };
 
+    const deleteEventDataHandler = (enteredEvent) => {
+        props.onDeleteEvent(enteredEvent);
+    };
+
     if (firstDayMonth !== 1) {
         const daysInLastMonth = daysInMonth(month - 1, year);
         let mondayLastWeekOfLastMonth = daysInLastMonth - (new Date(year, month - 1, daysInLastMonth).getDay()) + 1;
@@ -36,18 +40,27 @@ const Calendar = (props) => {
     const nextMonthDays = [...new Array(7 - calendarArray.length % 7)].map((day, index) => index + 1);
 
     return (
-        <div className={styles.grid}>
-            {calendarArray.concat(nextMonthDays).map((item, index) =>
-                <CalendarItem
-                    day={item}
-                    month={month}
-                    year={year}
-                    key={Math.random()}
-                    dayOfMonth={index < 7 ? DAYS_OF_MONTH[index] : ""}
-                    events={props.items}
-                    onSaveEvent={saveEventDataHandler}
-                />)}
-        </div>
+        <React.Fragment>
+            <div className={styles.date}>
+                <button/>
+                <p>Month Year</p>
+                <button/>
+                <button>Today</button>
+            </div>
+            <div className={styles.grid}>
+                {calendarArray.concat(nextMonthDays).map((item, index) =>
+                    <CalendarItem
+                        day={item}
+                        month={month}
+                        year={year}
+                        key={Math.random()}
+                        dayOfMonth={index < 7 ? DAYS_OF_MONTH[index] : ""}
+                        events={props.items}
+                        onSaveEvent={saveEventDataHandler}
+                        onDeleteEvent={deleteEventDataHandler}
+                    />)}
+            </div>
+        </React.Fragment>
     )
 };
 
