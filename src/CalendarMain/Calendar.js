@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./Calendar.module.css"
 import CalendarItem from "../CalendarItem/CalendarItem";
 
@@ -12,10 +12,25 @@ const DAYS_OF_MONTH = {
     6: "Sunday"
 };
 
+const MONTHS = {
+    0: "January",
+    1: "February",
+    2: "March",
+    3: "April",
+    4: "May",
+    5: "June",
+    6: "July",
+    7: "August",
+    8: "September",
+    9: "October",
+    10: "November",
+    11: "December"
+};
+
 const Calendar = (props) => {
-    const month = new Date().getMonth();
-    const year = new Date().getFullYear();
-    const firstDayMonth = new Date(year, month, 1).getDay();
+    const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+    const firstDayMonth = new Date(currentYear, currentMonth, 1).getDay();
     let lastMonthDays = [];
 
     const saveEventDataHandler = (enteredEvent) => {
@@ -27,37 +42,67 @@ const Calendar = (props) => {
     };
 
     if (firstDayMonth !== 1) {
-        const daysInLastMonth = daysInMonth(month - 1, year);
-        let mondayLastWeekOfLastMonth = daysInLastMonth - (new Date(year, month - 1, daysInLastMonth).getDay()) + 1;
+        const daysInLastMonth = daysInMonth(currentMonth - 1, currentYear);
+        let mondayLastWeekOfLastMonth = daysInLastMonth - (new Date(currentYear, currentMonth - 1, daysInLastMonth).getDay()) + 1;
 
         for (let i = mondayLastWeekOfLastMonth; i <= daysInLastMonth; i++) {
-            lastMonthDays.push(i);
+            lastMonthDays.push([i, currentMonth - 1]);
         }
     }
 
-    const monthDays = [...new Array(daysInMonth(month, year))].map((day, index) => index + 1);
+    const monthDays = [...new Array(daysInMonth(currentMonth, currentYear))].map((day, index) => [index + 1, currentMonth]);
     let calendarArray = lastMonthDays.concat(monthDays);
-    const nextMonthDays = [...new Array(7 - calendarArray.length % 7)].map((day, index) => index + 1);
+    const nextMonthDays = [...new Array(7 - calendarArray.length % 7)].map((day, index) => [index + 1, currentMonth + 1]);
+
+    const previousMonth = () => {
+        let month = currentMonth - 1;
+
+        if (month < 0) {
+            month = 11;
+            let year = currentYear - 1;
+            setCurrentYear(year);
+        }
+
+        setCurrentMonth(month);
+    }
+
+    const nextMonth = () => {
+        let month = currentMonth + 1;
+
+        if (month > 11) {
+            month = 0;
+            let year = currentYear + 1;
+            setCurrentYear(year);
+        }
+
+        setCurrentMonth(month);
+    }
+
+    const currentDate = () => {
+        setCurrentMonth(new Date().getMonth());
+        setCurrentYear(new Date().getFullYear());
+    }
 
     return (
         <React.Fragment>
             <div className={styles.date}>
-                <button/>
-                <p>Month Year</p>
-                <button/>
-                <button>Today</button>
+                <button className={styles.prev} onClick={previousMonth}/>
+                <p>{`${MONTHS[currentMonth]} ${currentYear}`}</p>
+                <button className={styles.next} onClick={nextMonth}/>
+                <button className={styles.today} onClick={currentDate}>Today</button>
             </div>
             <div className={styles.grid}>
                 {calendarArray.concat(nextMonthDays).map((item, index) =>
                     <CalendarItem
-                        day={item}
-                        month={month}
-                        year={year}
+                        day={item[0]}
+                        month={item[1]}
+                        year={currentYear}
                         key={Math.random()}
                         dayOfMonth={index < 7 ? DAYS_OF_MONTH[index] : ""}
                         events={props.items}
                         onSaveEvent={saveEventDataHandler}
                         onDeleteEvent={deleteEventDataHandler}
+                        searchResult={props.searchedItem}
                     />)}
             </div>
         </React.Fragment>
@@ -67,5 +112,13 @@ const Calendar = (props) => {
 const daysInMonth = (month, year) => {
     return new Date(year, month + 1, 0).getDate();
 }
+
+// const getMonth = (date) => {
+//     return Number(date.split("/")[0]);
+// }
+//
+// const getYear = (date) => {
+//     return Number(date.split("/")[2]);
+// }
 
 export default Calendar;

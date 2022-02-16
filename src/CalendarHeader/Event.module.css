@@ -1,0 +1,13 @@
+.element {
+    background-color: lightblue;
+    font-size: 12px;
+    text-align: start;
+    width: 175px;
+    padding: 2px 5px;
+    margin: 5px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+}

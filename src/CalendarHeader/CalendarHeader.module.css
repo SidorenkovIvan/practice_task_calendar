@@ -12,7 +12,6 @@
 }
 
 .actions-buttons {
-    display: inline-block;
     height: 2rem;
     background-color: #1e90ff;
     border: 1px solid rgba(0, 0, 0, 0.25);

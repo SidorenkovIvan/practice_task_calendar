@@ -8,3 +8,43 @@
     display: flex;
     flex-direction: row;
 }
+
+.date p {
+    padding: 0 10px;
+    text-align: center;
+    width: 120px;
+}
+
+.prev {
+    content: "";
+    width: 0;
+    height: 0;
+    margin: auto 0;
+    border-style: solid;
+    border-width: 10px 20px 10px 0;
+    background-color: white;
+    border-color: transparent #000 transparent transparent;
+}
+
+.next {
+    width: 0;
+    height: 0;
+    margin: auto 0;
+    border-style: solid;
+    background-color: white;
+    border-width: 10px 0 10px 20px;
+    border-color: transparent transparent transparent #000;
+}
+
+.today {
+    height: 1.5rem;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    text-align: center;
+    margin: 0 0.5rem;
+    padding: 0 1rem;
+    color: #000;
+    font-size: 16px;
+    align-self: center;
+}

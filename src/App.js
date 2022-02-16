@@ -24,11 +24,26 @@ const INITIAL_EVENTS = [
         members: "German, Artiom, Alexandr",
         description: "",
         key: "2/2/2022"
+    },
+    {
+        title: "Work",
+        date: "1/1/2022",
+        members: "German, Artiom",
+        description: "",
+        key: "1/1/2022"
+    },
+    {
+        title: "Work",
+        date: "3/4/2022",
+        members: "German",
+        description: "",
+        key: "3/4/2022"
     }
 ];
 
 function App() {
     const [events, setEvent] = useState(INITIAL_EVENTS);
+    const [searchedDate, setSearchedDate] = useState("");
 
     const addEventHandler = (event) => {
         setEvent((prevEvents) => {
@@ -42,12 +57,20 @@ function App() {
         });
     }
 
+    const searchedDateHandler = (date) => {
+        setSearchedDate(date);
+    }
+
     return (
         <React.Fragment>
-            <CalendarHeader items={events}/>
+            <CalendarHeader
+                items={events}
+                onSaveEventData={addEventHandler}
+                searchedHandler={searchedDateHandler}/>
             <div className={styles.calendar}>
                 <Calendar
                     items={events}
+                    searchedItem={searchedDate}
                     onSaveEventData={addEventHandler}
                     onDeleteEvent={deleteEventHandler}/>
             </div>

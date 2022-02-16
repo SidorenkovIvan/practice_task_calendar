@@ -1,14 +1,20 @@
 import React from "react";
 import styles from './SearchedEvents.module.css';
+import Event from "./Event";
 
 const SearchedEvents = (props) => {
+    const setSearchedEventHandler = (date) => {
+        props.clickedItem(date);
+    }
+
     return (
         <ul className={styles.list}>
             {props.filteredEvents && props.filteredEvents.map((event) =>
-                <li className={styles.element} key={Math.random()}>
-                    <p className={styles.title}>{event.title}</p>
-                    <p>{event.date}</p>
-                </li>
+                <Event
+                    onClickedEvent={setSearchedEventHandler}
+                    data={event}
+                    key={Math.random()}
+                />
             )}
         </ul>
     );
