@@ -86,9 +86,13 @@ const Calendar = (props) => {
     return (
         <React.Fragment>
             <div className={styles.date}>
-                <button className={styles.prev} onClick={previousMonth}/>
+                <div className={styles.background} onClick={previousMonth}>
+                    <div className={styles.prev} />
+                </div>
                 <p>{`${MONTHS[currentMonth]} ${currentYear}`}</p>
-                <button className={styles.next} onClick={nextMonth}/>
+                <div className={styles.background} onClick={nextMonth}>
+                    <div className={styles.next} />
+                </div>
                 <button className={styles.today} onClick={currentDate}>Today</button>
             </div>
             <div className={styles.grid}>
@@ -102,7 +106,6 @@ const Calendar = (props) => {
                         events={props.items}
                         onSaveEvent={saveEventDataHandler}
                         onDeleteEvent={deleteEventDataHandler}
-                        searchResult={props.searchedItem}
                     />)}
             </div>
         </React.Fragment>
@@ -112,13 +115,5 @@ const Calendar = (props) => {
 const daysInMonth = (month, year) => {
     return new Date(year, month + 1, 0).getDate();
 }
-
-// const getMonth = (date) => {
-//     return Number(date.split("/")[0]);
-// }
-//
-// const getYear = (date) => {
-//     return Number(date.split("/")[2]);
-// }
 
 export default Calendar;

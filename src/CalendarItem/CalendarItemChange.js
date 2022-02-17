@@ -20,6 +20,8 @@ const CalendarItemChange = (props) => {
     const [enteredTitle, setEnteredTitle] = useState(props.title.toString());
     const [enteredMembers, setEnteredMembers] = useState(props.members.toString());
     const [enteredDescription, setEnteredDescription] = useState(props.description.toString());
+    const formRef = React.useRef();
+    const isOverflow = useIsOverflow(formRef);
 
     const titleChangeHandler = (data) => {
         setEnteredTitle(data.target.value);
@@ -58,9 +60,13 @@ const CalendarItemChange = (props) => {
         props.onDeleteData(deleteEvent);
     }
 
-    return ( //Delete handlers (submit)
+
+    return (
         <form onSubmit={submitHandler}>
-            <div className={styles.form}>
+            <div id="mainForm"
+                 className={`${isOverflow && styles.form2}
+                  ${!isOverflow && styles.form}`}
+                 ref={formRef}>
                 <button className={styles['button-close']} type="button" onClick={props.onCancel}/>
                 {!props.title.toString() ?
                     <input type="text" value={enteredTitle} placeholder="Title" onChange={titleChangeHandler}/>
@@ -76,7 +82,7 @@ const CalendarItemChange = (props) => {
                     </React.Fragment>
                 }
                 <textarea className={styles.description} value={enteredDescription} placeholder="Description"
-                       onChange={descriptionChangeHandler}/>
+                          onChange={descriptionChangeHandler}/>
                 <div className={styles.actions}>
                     <button type="submit">Ready</button>
                     <button onClick={deleteHandler}>Delete</button>
@@ -84,6 +90,28 @@ const CalendarItemChange = (props) => {
             </div>
         </form>
     );
+};
+
+const useIsOverflow = (ref, callback) => {
+    const [isOverflow, setIsOverflow] = React.useState(false);
+
+    React.useLayoutEffect(() => {
+        const {current} = ref;
+
+        const trigger = () => {
+            const hasOverflow = window.innerWidth < current.getBoundingClientRect().right;
+            setIsOverflow(hasOverflow);
+            if (callback) {
+                callback(hasOverflow);
+            }
+        };
+
+        if (current) {
+            trigger();
+        }
+    }, [callback, ref]);
+
+    return isOverflow;
 };
 
 export default CalendarItemChange;

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styles from "./CalendarHeader.module.css"
-import SearchedEvents from "./SearchedEvents";
+import SearchedEvents from "./search/SearchedEvents";
 import AddComponent from "./AddComponent";
 
 const CalendarHeader = (props) => {
@@ -25,9 +25,9 @@ const CalendarHeader = (props) => {
         setIsEditing(false);
     }
 
-    const getSearchedEventHandler = (event) => {
-        props.searchedHandler(event);
-    }
+    const deleteEventDataHandler = (enteredEvent) => {
+        props.onDeleteEvent(enteredEvent);
+    };
 
     if (enteredEvent.target) {
         onFilterEvents = props.items.filter((event) => event.title.includes(enteredEvent.target.value));
@@ -49,7 +49,8 @@ const CalendarHeader = (props) => {
                                onChange={enteredEventHandler}/>
                         <SearchedEvents
                             filteredEvents={onFilterEvents}
-                            clickedItem={getSearchedEventHandler}/>
+                            onSaveEvent={saveEventDataHandler}
+                            onDeleteEvent={deleteEventDataHandler}/>
                     </div>
                 </div>
             </div>

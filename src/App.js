@@ -43,7 +43,6 @@ const INITIAL_EVENTS = [
 
 function App() {
     const [events, setEvent] = useState(INITIAL_EVENTS);
-    const [searchedDate, setSearchedDate] = useState("");
 
     const addEventHandler = (event) => {
         setEvent((prevEvents) => {
@@ -57,20 +56,15 @@ function App() {
         });
     }
 
-    const searchedDateHandler = (date) => {
-        setSearchedDate(date);
-    }
-
     return (
         <React.Fragment>
             <CalendarHeader
                 items={events}
                 onSaveEventData={addEventHandler}
-                searchedHandler={searchedDateHandler}/>
+                onDeleteEvent={deleteEventHandler}/>
             <div className={styles.calendar}>
                 <Calendar
                     items={events}
-                    searchedItem={searchedDate}
                     onSaveEventData={addEventHandler}
                     onDeleteEvent={deleteEventHandler}/>
             </div>
