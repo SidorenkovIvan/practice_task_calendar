@@ -1,113 +1,91 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useLayoutEffect} from "react";
 import styles from "./CalendarItemChange.module.css";
-
-const MONTHS = {
-    0: "january",
-    1: "february",
-    2: "march",
-    3: "april",
-    4: "may",
-    5: "june",
-    6: "july",
-    7: "august",
-    8: "september",
-    9: "october",
-    10: "november",
-    11: "december"
-};
+import variables from "../CalendarHeader/Data/Data";
 
 const CalendarItemChange = (props) => {
-    const titleRef = useRef();
-    const membersRef = useRef();
-    const [enteredDescription, setEnteredDescription] = useState(props.description.toString());
-    const formRef = React.useRef();
-    const isOverflow = useIsOverflow(formRef);
+  const titleRef = useRef();
+  const membersRef = useRef();
+  const [enteredDescription, setEnteredDescription] = useState(props.description.toString());
+  const formRef = React.useRef();
+  const isOverflow = useIsOverflow(formRef);
 
-    const descriptionChangeHandler = (data) => {
-        setEnteredDescription(data.target.value);
-    }
+  const descriptionChangeHandler = (data) => setEnteredDescription(data.target.value);
 
-    const submitHandler = (data) => {
-        deleteHandler(data);
-        data.preventDefault();
+  const submitHandler = (data) => {
+    deleteHandler(data);
+    data.preventDefault();
 
-        const addingEvent = {
-            title: props.title ?
-                props.title :
-                titleRef.current.value,
-            members: props.members ?
-                props.members :
-                membersRef.current.value,
-            description: enteredDescription,
-            key: `${props.month + 1}/${props.day}/${props.year}`,
-            date: `${props.month + 1}/${props.day}/${props.year}`
-        }
+    const addingEvent = {
+      title: props.title ?
+        props.title :
+        titleRef.current.value,
+      members: props.members ?
+        props.members :
+        membersRef.current.value,
+      description: enteredDescription,
+      key: `${props.month + 1}/${props.day}/${props.year}`,
+      date: `${props.month + 1}/${props.day}/${props.year}`
+    };
 
-        props.onSaveData(addingEvent);
-    }
+    props.onSaveData(addingEvent);
+  };
 
-    const deleteHandler = (data) => {
-        data.preventDefault();
+  const deleteHandler = (data) => {
+    data.preventDefault();
 
-        const deleteEvent = {
-            date: `${props.month + 1}/${props.day}/${props.year}`
-        }
+    const deleteEvent = {
+      date: `${props.month + 1}/${props.day}/${props.year}`
+    };
 
-        props.onDeleteData(deleteEvent);
-    }
+    props.onDeleteData(deleteEvent);
+  };
 
 
-    return (
-        <form onSubmit={submitHandler}>
-            <div id="mainForm"
-                 className={`${isOverflow && styles.form2}
+  return (
+    <form onSubmit={submitHandler}>
+      <div className={`${isOverflow && styles.form2}
                   ${!isOverflow && styles.form}`}
-                 ref={formRef}>
-                <button className={styles['button-close']} type="button" onClick={props.onCancel}/>
-                {!props.title ?
-                    <input type="text" placeholder="Title" ref={titleRef}/>
-                    : <React.Fragment>
-                        <h3>{props.title}</h3>
-                        <p>{`${props.day} ${MONTHS[props.month]}`}</p>
-                    </React.Fragment>}
-                {!props.members ?
-                    <input type="text" placeholder="Members" ref={membersRef}/>
-                    : <React.Fragment>
-                        <p>Members:</p>
-                        <p>{props.members}</p>
-                    </React.Fragment>
-                }
-                <textarea className={styles.description} value={enteredDescription} placeholder="Description"
-                          onChange={descriptionChangeHandler}/>
-                <div className={styles.actions}>
-                    <button type="submit">Ready</button>
-                    <button onClick={deleteHandler}>Delete</button>
-                </div>
-            </div>
-        </form>
-    );
+           ref={formRef}>
+        <button className={styles.buttonClose} type="button" onClick={props.onCancel}/>
+        {props.title ? <>
+          <h3>{props.title}</h3>
+          <p>{`${props.day} ${variables.MONTHS[props.month]}`}</p>
+        </> : <input type="text" placeholder="Title" ref={titleRef}/>}
+        {props.members ? <>
+          <p>Members:</p>
+          <p>{props.members}</p>
+        </> : <input type="text" placeholder="Members" ref={membersRef}/>}
+        <textarea className={styles.description} value={enteredDescription} placeholder="Description"
+                  onChange={descriptionChangeHandler}/>
+        <div className={styles.actions}>
+          <button type="submit">Ready</button>
+          <button onClick={deleteHandler}>Delete</button>
+        </div>
+      </div>
+    </form>
+  );
 };
 
 const useIsOverflow = (ref, callback) => {
-    const [isOverflow, setIsOverflow] = React.useState(false);
+  const [isOverflow, setIsOverflow] = React.useState(false);
 
-    React.useLayoutEffect(() => {
-        const {current} = ref;
+  useLayoutEffect(() => {
+    const {current} = ref;
 
-        const trigger = () => {
-            const hasOverflow = window.innerWidth < current.getBoundingClientRect().right;
-            setIsOverflow(hasOverflow);
-            if (callback) {
-                callback(hasOverflow);
-            }
-        };
+    const trigger = () => {
+      const hasOverflow = window.innerWidth < current.getBoundingClientRect().right;
+      setIsOverflow(hasOverflow);
+      if (callback) {
+        callback(hasOverflow);
+      }
+    };
 
-        if (current) {
-            trigger();
-        }
-    }, [callback, ref]);
+    if (current) {
+      trigger();
+    }
+  }, [callback, ref]);
 
-    return isOverflow;
+  return isOverflow;
 };
 
 export default CalendarItemChange;

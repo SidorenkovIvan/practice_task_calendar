@@ -1,75 +1,42 @@
 import React, {useState} from "react";
-import styles from './App.module.css';
+import styles from "./App.module.css";
 import CalendarHeader from "./CalendarHeader/CalendarHeader";
 import Calendar from "./CalendarMain/Calendar";
-
-const INITIAL_EVENTS = [
-    {
-        title: "Meeting on Bolotnaya",
-        date: "2/10/2022",
-        members: "Volodya, Dima",
-        description: "",
-        key: "2/10/2022"
-    },
-    {
-        title: "Birthday",
-        date: "2/24/2022",
-        members: "German, Artiom",
-        description: "Drink!",
-        key: "2/24/2022"
-    },
-    {
-        title: "Work",
-        date: "2/2/2022",
-        members: "German, Artiom, Alexandr",
-        description: "",
-        key: "2/2/2022"
-    },
-    {
-        title: "Work",
-        date: "1/1/2022",
-        members: "German, Artiom",
-        description: "",
-        key: "1/1/2022"
-    },
-    {
-        title: "Work",
-        date: "3/4/2022",
-        members: "German",
-        description: "",
-        key: "3/4/2022"
-    }
-];
+import variables from "./CalendarHeader/Data/Data";
 
 function App() {
-    const [events, setEvent] = useState(INITIAL_EVENTS);
+  const [events, setEvent] = useState(variables.INITIAL_EVENTS);
 
-    const addEventHandler = (event) => {
-        setEvent((prevEvents) => {
-            return [event, ...prevEvents];
-        });
-    }
+  const addEventHandler = (event) => {
+    setEvent((prevEvents) => {
+      return [...prevEvents, event];
+    });
+  };
 
-    const deleteEventHandler = (event) => {
-        setEvent((prevEvents) => {
-            return prevEvents.filter((item) => item.date !== event.date);
-        });
-    }
+  const deleteEventHandler = (event) => {
+    setEvent((prevEvents) => {
+      return prevEvents.filter((item) => item.date !== event.date);
+    });
+  };
 
-    return (
-        <React.Fragment>
-            <CalendarHeader
-                items={events}
-                onSaveEventData={addEventHandler}
-                onDeleteEvent={deleteEventHandler}/>
-            <div className={styles.calendar}>
-                <Calendar
-                    items={events}
-                    onSaveEventData={addEventHandler}
-                    onDeleteEvent={deleteEventHandler}/>
-            </div>
-        </React.Fragment>
-    );
+  return (
+    <>
+      <footer>
+        <CalendarHeader
+          items={events}
+          onSaveEventData={addEventHandler}
+          onDeleteEvent={deleteEventHandler}/>
+      </footer>
+      <main>
+        <div className={styles.calendar}>
+          <Calendar
+            items={events}
+            onSaveEventData={addEventHandler}
+            onDeleteEvent={deleteEventHandler}/>
+        </div>
+      </main>
+    </>
+  );
 }
 
 export default App;

@@ -1,58 +1,58 @@
 .header {
-    display: flex;
-    flex-direction: row;
-    background-color: #EFEFEF;
-    width: 100%;
-    height: 8rem;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: row;
+  background-color: #EFEFEF;
+  width: 100%;
+  height: 8rem;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
 .actions {
-    padding: 0 0 2rem 4rem;
-    align-self: flex-end;
+  padding: 0 0 2rem 4rem;
+  align-self: flex-end;
 }
 
-.actions-buttons {
-    height: 2rem;
-    background-color: #1e90ff;
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-    text-align: center;
-    margin: 0 0.5rem;
-    padding: 0 1rem;
-    color: #fff;
-    font-size: 16px;
+.actionsButtons {
+  height: 2rem;
+  background-color: #1e90ff;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  text-align: center;
+  margin: 0 0.5rem;
+  padding: 0 1rem;
+  color: #fff;
+  font-size: 16px;
 }
 
 .search {
-    display: flex;
-    flex-direction: row;
-    align-self: flex-end;
-    margin-left: auto;
-    padding: 0 4rem 2rem 0;
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+  margin-left: auto;
+  padding: 0 4rem 2rem 0;
 }
 
-.search-button {
-    margin: 0 0.5rem;
-    padding: 0 1rem;
-    border: none;
-    background-image: url("/public/search.png");
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    cursor: pointer;
-    height: 24px;
-    vertical-align: middle;
+.searchButton {
+  margin: 0 0.5rem;
+  padding: 0 1rem;
+  border: none;
+  background-image: url("/public/search.png");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+  height: 24px;
+  vertical-align: middle;
 }
 
-.search-input {
-    position: relative;
-    border-width: 2px;
-    border-top-width: 3px;
-    border-top-color: dimgrey;
-    border-style: solid;
-    border-color:  rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-    padding: 5px;
-    outline: none;
+.searchInput {
+  position: relative;
+  border-width: 2px;
+  border-top-width: 3px;
+  border-top-color: dimgrey;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  padding: 5px;
+  outline: none;
 }
