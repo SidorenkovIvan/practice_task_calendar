@@ -1,12 +1,17 @@
 import React, {useState} from "react";
-import "./CalendarItem.css"
+import styles from "./CalendarItem.module.css"
 import CalendarItemChange from "./CalendarItemChange";
 
 const CalendarItem = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const saveDataEditingHandler = (enteredEvent) => {
-        props.onAddEvent(enteredEvent);
+        props.onSaveEvent(enteredEvent);
+        setIsEditing(false);
+    }
+
+    const deleteDataEditingHandler = (enteredEvent) => {
+        props.onDeleteEvent(enteredEvent);
         setIsEditing(false);
     }
 
@@ -29,43 +34,47 @@ const CalendarItem = (props) => {
         }
     }
 
-    return (
-        <div className="calendar-item" onClick={startEditingHandler} style={title ? {
-            backgroundColor: "cornflowerblue",
-            border: "1px solid blue"
-        } : {backgroundColor: "white"}}>
+    return ( //Should divide by components
+        <React.Fragment>
             {!isEditing && (
-                <div>
-                    <p className="calendar-item__date">
+                <div className={`${styles.item} ${title && styles['not-empty']}`}
+                     onClick={startEditingHandler}>
+                    <p className={styles['item-date']}>
                         {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
                         {props.day}
                     </p>
-                    <div className="calendar-item__text">
+                    <div className={styles['item-text']}>
                         <p>{title}</p>
                         <p>{members}</p>
                     </div>
                 </div>
             )}
             {isEditing && (
-                <div>
-                    <p className="calendar-item__date">
+                <div className={`${styles.item} 
+                ${title && styles['not-empty']} 
+                ${!title && isEditing && styles.clicked}`}>
+                    <p className={styles['item-date']}>
                         {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
                         {props.day}
                     </p>
-                    <div className="calendar-item__text">
+                    <div className={styles['item-text']}>
                         <p>{title}</p>
                         <p>{members}</p>
                     </div>
                     <CalendarItemChange
+                        year={props.year}
+                        month={props.month}
+                        day={props.day}
                         title={title}
                         members={members}
                         description={description}
                         onSaveData={saveDataEditingHandler}
+                        onDeleteData={deleteDataEditingHandler}
                         onCancel={stopEditingHandler}
                     />
                 </div>
             )}
-        </div>
+        </React.Fragment>
     );
 };
 
