@@ -3,6 +3,7 @@ import styles from './App.module.css';
 import CalendarHeader from "./CalendarHeader/CalendarHeader";
 import Calendar from "./CalendarMain/Calendar";
 
+// TODO: better separate data from view(MVC)
 const INITIAL_EVENTS = [
     {
         title: "Meeting on Bolotnaya",
@@ -46,7 +47,7 @@ function App() {
 
     const addEventHandler = (event) => {
         setEvent((prevEvents) => {
-            return [event, ...prevEvents];
+            return [event, ...prevEvents]; // TODO: in the end of arr
         });
     }
 
@@ -57,16 +58,18 @@ function App() {
     }
 
     return (
-        <React.Fragment>
+        <React.Fragment> // TODO: use short
             <CalendarHeader
                 items={events}
                 onSaveEventData={addEventHandler}
-                onDeleteEvent={deleteEventHandler}/>
+                onDeleteEvent={deleteEventHandler}
+            />
             <div className={styles.calendar}>
                 <Calendar
                     items={events}
                     onSaveEventData={addEventHandler}
-                    onDeleteEvent={deleteEventHandler}/>
+                    onDeleteEvent={deleteEventHandler}
+                />
             </div>
         </React.Fragment>
     );

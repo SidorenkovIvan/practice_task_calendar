@@ -3,14 +3,12 @@ import styles from "./CalendarHeader.module.css"
 import SearchedEvents from "./search/SearchedEvents";
 import AddComponent from "./AddComponent";
 
-const CalendarHeader = (props) => {
+const CalendarHeader = (props) => { // TODO: I would use destructuring for the props
     const [enteredEvent, setEnteredEvent] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     let onFilterEvents = [];
 
-    const enteredEventHandler = (event) => {
-        setEnteredEvent(event);
-    };
+    const enteredEventHandler = (event) => setEnteredEvent(event); // TODO: use function in one line for other too
 
     const startEditingHandler = () => {
         setIsEditing(true);
