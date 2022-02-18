@@ -1,18 +1,14 @@
-import React, {useState} from "react";
+import React, {useRef} from "react";
 import styles from "./AddComponent.module.css";
 
 const AddComponent = (props) => {
-    const [enteredInput, setEnteredInput] = useState("");
-
-    const inputChangeHandler = (data) => {
-        setEnteredInput(data.target.value);
-    }
+    const enteredInput = useRef();
 
     const submitHandler = (data) => {
         data.preventDefault();
 
         const addingEvent = {
-            title: enteredInput,
+            title: enteredInput.current.value,
             members: "",
             description: "",
             key: `${new Date().getMonth() + 1}/${new Date().getDate()}/${new Date().getFullYear()}`,
@@ -25,7 +21,7 @@ const AddComponent = (props) => {
     return (
         <form className={styles.form} onSubmit={submitHandler}>
             <button className={styles.close} onClick={props.onCancel}/>
-            <input type="text" placeholder="5 march, birthday" onChange={inputChangeHandler}/>
+            <input type="text" placeholder="5 march, birthday" ref={enteredInput}/>
             <button className={styles.add} type="submit">Add</button>
         </form>
     );

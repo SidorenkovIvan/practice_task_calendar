@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import styles from "./CalendarItemChange.module.css";
 
 const MONTHS = {
@@ -17,19 +17,11 @@ const MONTHS = {
 };
 
 const CalendarItemChange = (props) => {
-    const [enteredTitle, setEnteredTitle] = useState(props.title.toString());
-    const [enteredMembers, setEnteredMembers] = useState(props.members.toString());
+    const titleRef = useRef();
+    const membersRef = useRef();
     const [enteredDescription, setEnteredDescription] = useState(props.description.toString());
     const formRef = React.useRef();
     const isOverflow = useIsOverflow(formRef);
-
-    const titleChangeHandler = (data) => {
-        setEnteredTitle(data.target.value);
-    }
-
-    const membersChangeHandler = (data) => {
-        setEnteredMembers(data.target.value);
-    }
 
     const descriptionChangeHandler = (data) => {
         setEnteredDescription(data.target.value);
@@ -40,8 +32,8 @@ const CalendarItemChange = (props) => {
         data.preventDefault();
 
         const addingEvent = {
-            title: enteredTitle,
-            members: enteredMembers,
+            title: titleRef.current.value,
+            members: membersRef.current.value,
             description: enteredDescription,
             key: `${props.month + 1}/${props.day}/${props.year}`,
             date: `${props.month + 1}/${props.day}/${props.year}`
@@ -68,17 +60,17 @@ const CalendarItemChange = (props) => {
                   ${!isOverflow && styles.form}`}
                  ref={formRef}>
                 <button className={styles['button-close']} type="button" onClick={props.onCancel}/>
-                {!props.title.toString() ?
-                    <input type="text" value={enteredTitle} placeholder="Title" onChange={titleChangeHandler}/>
+                {!props.title ?
+                    <input type="text" placeholder="Title" ref={titleRef}/>
                     : <React.Fragment>
-                        <h3>{enteredTitle}</h3>
+                        <h3>{props.title}</h3>
                         <p>{`${props.day} ${MONTHS[props.month]}`}</p>
                     </React.Fragment>}
-                {!props.members.toString() ?
-                    <input type="text" value={enteredMembers} placeholder="Members" onChange={membersChangeHandler}/>
+                {!props.members ?
+                    <input type="text" placeholder="Members" ref={membersRef}/>
                     : <React.Fragment>
                         <p>Members:</p>
-                        <p>{enteredMembers}</p>
+                        <p>{props.members}</p>
                     </React.Fragment>
                 }
                 <textarea className={styles.description} value={enteredDescription} placeholder="Description"
