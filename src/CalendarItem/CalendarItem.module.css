@@ -1,27 +1,27 @@
 .item {
-    position: relative;
-    height: 10rem;
-    border: 1px solid #d3d3d3;
-    cursor: pointer;
+  position: relative;
+  height: 10rem;
+  border: 1px solid #d3d3d3;
+  cursor: pointer;
 }
 
-.item.not-empty {
-    background-color: #ccffff;
-    border: 1px solid #66b2ff;
+.item.notEmpty {
+  background-color: #ccffff;
+  border: 1px solid #66b2ff;
 }
 
 .item.clicked {
-    background-color: #ccffff;
-    border: 1px solid #66b2ff;
+  background-color: #ccffff;
+  border: 1px solid #66b2ff;
 }
 
-.item-date {
-    line-height: 0;
-    padding-left: 0.5rem;
-    color: #808080;
+.itemDate {
+  line-height: 0;
+  padding-left: 0.5rem;
+  color: #808080;
 }
 
-.item-text {
-    padding: 0 10px;
-    overflow: hidden;
+.itemText {
+  padding: 0 10px;
+  overflow: hidden;
 }
