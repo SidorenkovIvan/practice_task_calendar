@@ -32,8 +32,12 @@ const CalendarItemChange = (props) => {
         data.preventDefault();
 
         const addingEvent = {
-            title: titleRef.current.value,
-            members: membersRef.current.value,
+            title: props.title ?
+                props.title :
+                titleRef.current.value,
+            members: props.members ?
+                props.members :
+                membersRef.current.value,
             description: enteredDescription,
             key: `${props.month + 1}/${props.day}/${props.year}`,
             date: `${props.month + 1}/${props.day}/${props.year}`
