@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import styles from "./AddComponent.module.css";
 
 const AddComponent = (props) => {
-  const enteredInput = useRef();
+  const enteredInput = useRef(); // // TODO: why ref?
 
   const submitHandler = (data) => {
     data.preventDefault();

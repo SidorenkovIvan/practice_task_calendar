@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./CalendarItem.module.css";
 import CalendarItemChange from "./CalendarItemChange";
 
-const CalendarItem = (props) => {
+const CalendarItem = (props) => {  /* // TODO: destruction here */
   const [isEditing, setIsEditing] = useState(false);
 
   const saveDataEditingHandler = (enteredEvent) => {
@@ -32,8 +32,10 @@ const CalendarItem = (props) => {
   return (
     <>
       {!isEditing && (
-        <div className={`${styles.item} ${title && styles.notEmpty}`}
-             onClick={startEditingHandler}>
+        <div
+          className={`${styles.item} ${title && styles.notEmpty}`}
+          onClick={startEditingHandler}
+        >
           <p className={styles.itemDate}>
             {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
             {props.day}
@@ -45,9 +47,12 @@ const CalendarItem = (props) => {
         </div>
       )}
       {isEditing && (
-        <div className={`${styles.item} 
-                ${title && styles.notEmpty} 
+        /*<div className={`${styles.item}
+                ${title && styles.notEmpty}
                 ${!title && isEditing && styles.clicked}`}>
+                 // TODO: use correct rules for showing attributes of tag(all in one line or all from new line)
+                */
+        <div className={`${styles.item} ${title && styles.notEmpty} ${!title && isEditing && styles.clicked}`}>
           <p className={styles.itemDate}>
             {props.dayOfMonth ? `${props.dayOfMonth}, ` : ""}
             {props.day}

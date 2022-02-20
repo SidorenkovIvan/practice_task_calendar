@@ -3,7 +3,7 @@ import styles from "./CalendarItemChange.module.css";
 import variables from "../CalendarHeader/Data/Data";
 
 const CalendarItemChange = (props) => {
-  const titleRef = useRef();
+  const titleRef = useRef(); // TODO: why we use refs here?
   const membersRef = useRef();
   const [enteredDescription, setEnteredDescription] = useState(props.description.toString());
   const formRef = React.useRef();
@@ -40,9 +40,9 @@ const CalendarItemChange = (props) => {
     props.onDeleteData(deleteEvent);
   };
 
-
   return (
     <form onSubmit={submitHandler}>
+      {/*// TODO: use correct rules for showing attributes of tag(all in one line or all from new line)*/}
       <div className={`${isOverflow && styles.form2}
                   ${!isOverflow && styles.form}`}
            ref={formRef}>
