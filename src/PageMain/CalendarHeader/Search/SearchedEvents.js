@@ -8,18 +8,17 @@ const SearchedEvents = (props) => {
   const onDeleteDataHandler = (event) => props.onDeleteEvent(event);
 
   return (
-    <ul className={styles.list}>
-      {props.filteredEvents && props.filteredEvents.map((event, index) =>
-        <>
+    <ul className={ styles.list }>
+      { props.filteredEvents && props.filteredEvents.map((event, index) =>
+        <React.Fragment key={ Math.random() }>
           <Event
-            data={event}
-            key={Math.random()}
-            onSaveEvent={onSaveDataHandler}
-            onDeleteEvent={onDeleteDataHandler}
+            data={ event }
+            onSaveEvent={ onSaveDataHandler }
+            onDeleteEvent={ onDeleteDataHandler }
           />
-          {index < propsLength - 1 && <hr/>}
-        </>
-      )}
+          { index < propsLength - 1 && <hr/> }
+        </React.Fragment>
+      ) }
     </ul>
   );
 };

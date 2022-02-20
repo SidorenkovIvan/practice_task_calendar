@@ -1,41 +1,39 @@
-import React, {useState} from "react";
-import styles from "./App.module.css";
-import CalendarHeader from "./CalendarHeader/CalendarHeader";
-import Calendar from "./CalendarMain/Calendar";
-import variables from "./CalendarHeader/Data/Data";
+import React, { useEffect, useState } from "react";
+import AuthContext from "./PageMain/Data/AuthContext";
+import PageLogin from "./PageLogin/PageLogin";
+import PageMain from "./PageMain/PageMain";
 
 function App() {
-  const [events, setEvent] = useState(variables.INITIAL_EVENTS);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const addEventHandler = (event) => {
-    setEvent((prevEvents) => {
-      return [...prevEvents, event];
-    });
+  useEffect(() => {
+    const storedUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+
+    if (storedUserLoggedInInformation === "1") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const loginHandler = (email, password) => {
+    if (email === "test@test.com" && password === "1234567") {
+      localStorage.setItem("isLoggedIn", "1");
+      setIsLoggedIn(true);
+    }
   };
 
-  const deleteEventHandler = (event) => {
-    setEvent((prevEvents) => {
-      return prevEvents.filter((item) => item.date !== event.date);
-    });
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
   };
 
   return (
-    <>
-      <footer>
-        <CalendarHeader
-          items={events}
-          onSaveEventData={addEventHandler}
-          onDeleteEvent={deleteEventHandler}/>
-      </footer>
-      <main>
-        <div className={styles.calendar}>
-          <Calendar
-            items={events}
-            onSaveEventData={addEventHandler}
-            onDeleteEvent={deleteEventHandler}/>
-        </div>
-      </main>
-    </>
+    <AuthContext.Provider value={ {
+      isLoggedIn: isLoggedIn,
+      onLogout: logoutHandler
+    } }>
+      { !isLoggedIn && <PageLogin onLogin={ loginHandler }/> }
+      { isLoggedIn && <PageMain onLogout={ logoutHandler }/> }
+    </AuthContext.Provider>
   );
 }
 

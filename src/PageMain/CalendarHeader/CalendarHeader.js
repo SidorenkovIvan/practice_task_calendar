@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./CalendarHeader.module.css";
 import SearchedEvents from "./Search/SearchedEvents";
 import AddComponent from "./AddComponent";
@@ -24,30 +24,32 @@ const CalendarHeader = (props) => {
 
   return (
     <>
-      <div className={styles.header}>
-        <div className={styles.actions}>
-          <button className={styles.actionsButtons} onClick={startEditingHandler}>Add</button>
-          <button className={styles.actionsButtons}>Update</button>
+      <div className={ styles.header }>
+        <div className={ styles.actions }>
+          <button className={ styles.actionsButtons } onClick={ startEditingHandler }>Add</button>
+          <button className={ styles.actionsButtons }>Update</button>
         </div>
-        <div className={styles.search}>
-          <button className={styles.searchButton}/>
+        <div className={ styles.search }>
+          <button className={ styles.searchButton }/>
           <div>
-            <input className={styles.searchInput}
+            <input className={ styles.searchInput }
                    type="text"
                    placeholder="Event, date or user"
-                   onChange={enteredEventHandler}/>
+                   onChange={ enteredEventHandler }
+            />
             <SearchedEvents
-              filteredEvents={onFilterEvents}
-              onSaveEvent={saveEventDataHandler}
-              onDeleteEvent={deleteEventDataHandler}/>
+              filteredEvents={ onFilterEvents }
+              onSaveEvent={ saveEventDataHandler }
+              onDeleteEvent={ deleteEventDataHandler }
+            />
           </div>
         </div>
       </div>
-      {isEditing && (
+      { isEditing && (
         <AddComponent
-          onSaveData={saveEventDataHandler}
-          onCancel={stopEditingHandler}/>
-      )}
+          onSaveData={ saveEventDataHandler }
+          onCancel={ stopEditingHandler }/>
+      ) }
     </>
   );
 };
