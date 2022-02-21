@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import AuthContext from "./PageMain/Data/AuthContext";
 import PageLogin from "./PageLogin/PageLogin";
 import PageMain from "./PageMain/PageMain";
+import { Route, Routes, Navigate } from "react-router-dom";
+import PageProfile from "./PageProfile/PageProfile";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,26 +15,32 @@ function App() {
     }
   }, []);
 
-  const loginHandler = (email, password) => {
+  const onLogin = (email, password) => {
     if (email === "test@test.com" && password === "1234567") {
       localStorage.setItem("isLoggedIn", "1");
       setIsLoggedIn(true);
     }
   };
 
-  const logoutHandler = () => {
+  const onLogout = () => {
+    console.log("Logout");
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={ {
-      isLoggedIn: isLoggedIn,
-      onLogout: logoutHandler
-    } }>
-      { !isLoggedIn && <PageLogin onLogin={ loginHandler }/> }
-      { isLoggedIn && <PageMain onLogout={ logoutHandler }/> }
-    </AuthContext.Provider>
+    <Routes>
+      <Route path="/" element={ <Navigate to="/login"/> }/>
+      <Route path="/login" element={
+        (isLoggedIn && <Navigate to="/calendar"/>) ||
+        (!isLoggedIn && <PageLogin onLogin={ onLogin }/>)
+      }/>
+      <Route path="/calendar" element={
+        (isLoggedIn && <PageMain onLogout={ onLogout }/>) ||
+        (!isLoggedIn && <Navigate to="/login"/>)
+      }/>
+      <Route path="/profile" element={ <PageProfile/> }/>
+    </Routes>
   );
 }
 

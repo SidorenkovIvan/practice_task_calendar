@@ -26,7 +26,7 @@ const passwordReducer = (state, action) => {
   return { value: "", isValid: false };
 };
 
-const PageLogin = (props) => {
+const PageLogin = ({ onLogin }) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
@@ -57,16 +57,16 @@ const PageLogin = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    onLogin(emailState.value, passwordState.value);
   };
 
   return (
     <div className={ `${ classes.login } ${ classes.card }` }>
       <form onSubmit={ submitHandler }>
         <div
-          className={ `${ classes.control } ${
-            emailState.isValid === false ? classes.invalid : ""
-          }` }>
+          className={ `${ classes.control } 
+          ${ emailState.isValid === false && emailState.value ? classes.invalid : "" }` }
+        >
           <label htmlFor="email">E-Mail</label>
           <input
             type="email"
@@ -76,9 +76,9 @@ const PageLogin = (props) => {
             onBlur={ validateEmailHandler }/>
         </div>
         <div
-          className={ `${ classes.control } ${
-            passwordState.isValid === false ? classes.invalid : ""
-          }` }>
+          className={ `${ classes.control } 
+          ${ passwordState.isValid === false && passwordState.value ? classes.invalid : "" }` }
+        >
           <label htmlFor="password">Password</label>
           <input
             type="password"

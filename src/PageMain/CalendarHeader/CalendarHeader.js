@@ -3,7 +3,7 @@ import styles from "./CalendarHeader.module.css";
 import SearchedEvents from "./Search/SearchedEvents";
 import AddComponent from "./AddComponent";
 
-const CalendarHeader = (props) => {
+const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData, onLogoutHandler }) => {
   const [enteredEvent, setEnteredEvent] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   let onFilterEvents = [];
@@ -11,19 +11,24 @@ const CalendarHeader = (props) => {
   const enteredEventHandler = (event) => setEnteredEvent(event);
   const startEditingHandler = () => setIsEditing(true);
   const stopEditingHandler = () => setIsEditing(false);
-  const deleteEventDataHandler = (enteredEvent) => props.onDeleteEvent(enteredEvent);
+  const deleteEventDataHandler = (enteredEvent) => onDeleteEvent(enteredEvent);
 
   const saveEventDataHandler = (event) => {
-    props.onSaveEventData(event);
+    onSaveEventData(event);
     setIsEditing(false);
   };
 
+  const onLogout = () => {
+    console.log("Logout");
+    onLogoutHandler;
+  };
+
   if (enteredEvent.target) {
-    onFilterEvents = props.items.filter((event) => event.title.includes(enteredEvent.target.value));
+    onFilterEvents = items.filter((event) => event.title.includes(enteredEvent.target.value));
   }
 
   return (
-    <>
+    <header>
       <div className={ styles.header }>
         <div className={ styles.actions }>
           <button className={ styles.actionsButtons } onClick={ startEditingHandler }>Add</button>
@@ -42,6 +47,7 @@ const CalendarHeader = (props) => {
               onSaveEvent={ saveEventDataHandler }
               onDeleteEvent={ deleteEventDataHandler }
             />
+            <button type="button" onClick={onLogout}>Logout</button>
           </div>
         </div>
       </div>
@@ -50,7 +56,7 @@ const CalendarHeader = (props) => {
           onSaveData={ saveEventDataHandler }
           onCancel={ stopEditingHandler }/>
       ) }
-    </>
+    </header>
   );
 };
 

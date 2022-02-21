@@ -4,7 +4,7 @@ import variables from "./Data/Data";
 import Calendar from "./CalendarMain/Calendar";
 
 
-function PageMain() {
+function PageMain({ onLogout }) {
   const [events, setEvent] = useState(variables.INITIAL_EVENTS);
 
   const onSaveEventData = (event) => {
@@ -19,14 +19,18 @@ function PageMain() {
     });
   };
 
+  const onLogoutHandler = () => {
+    console.log("Logout");
+    onLogout;
+  };
+
   return (
     <>
-      <footer>
-        <CalendarHeader
-          items={ events }
-          onSaveEventData={ onSaveEventData }
-          onDeleteEvent={ onDeleteEvent }/>
-      </footer>
+      <CalendarHeader
+        items={ events }
+        onSaveEventData={ onSaveEventData }
+        onDeleteEvent={ onDeleteEvent }
+        onLogoutHandler={ onLogoutHandler }/>
       <Calendar
         items={ events }
         onSaveEventData={ onSaveEventData }
