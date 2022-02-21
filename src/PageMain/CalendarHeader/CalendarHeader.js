@@ -3,7 +3,7 @@ import styles from "./CalendarHeader.module.css";
 import SearchedEvents from "./Search/SearchedEvents";
 import AddComponent from "./AddComponent";
 
-const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData, onLogoutHandler }) => {
+const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData }) => {
   const [enteredEvent, setEnteredEvent] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   let onFilterEvents = [];
@@ -16,11 +16,6 @@ const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData, onLogoutHandler
   const saveEventDataHandler = (event) => {
     onSaveEventData(event);
     setIsEditing(false);
-  };
-
-  const onLogout = () => {
-    console.log("Logout");
-    onLogoutHandler;
   };
 
   if (enteredEvent.target) {
@@ -47,7 +42,6 @@ const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData, onLogoutHandler
               onSaveEvent={ saveEventDataHandler }
               onDeleteEvent={ deleteEventDataHandler }
             />
-            <button type="button" onClick={onLogout}>Logout</button>
           </div>
         </div>
       </div>

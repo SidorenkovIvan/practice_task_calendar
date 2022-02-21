@@ -61,40 +61,39 @@ const PageLogin = ({ onLogin }) => {
   };
 
   return (
-    <div className={ `${ classes.login } ${ classes.card }` }>
-      <form onSubmit={ submitHandler }>
-        <div
-          className={ `${ classes.control } 
+    <form onSubmit={ submitHandler } className={ `${ classes.login } ${ classes.card }` }>
+      <p>Sign In</p>
+      <div
+        className={ `${ classes.control } 
           ${ emailState.isValid === false && emailState.value ? classes.invalid : "" }` }
-        >
-          <label htmlFor="email">E-Mail</label>
-          <input
-            type="email"
-            id="email"
-            value={ emailState.value }
-            onChange={ emailChangeHandler }
-            onBlur={ validateEmailHandler }/>
-        </div>
-        <div
-          className={ `${ classes.control } 
+      >
+        <label htmlFor="email">E-Mail</label>
+        <input
+          type="email"
+          id="email"
+          value={ emailState.value }
+          onChange={ emailChangeHandler }
+          onBlur={ validateEmailHandler }/>
+      </div>
+      <div
+        className={ `${ classes.control } 
           ${ passwordState.isValid === false && passwordState.value ? classes.invalid : "" }` }
-        >
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={ passwordState.value }
-            onChange={ passwordChangeHandler }
-            onBlur={ validatePasswordHandler }
-          />
-        </div>
-        <div className={ classes.actions }>
-          <Button type="submit" disabled={ !formIsValid }>
-            Login
-          </Button>
-        </div>
-      </form>
-    </div>
+      >
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          value={ passwordState.value }
+          onChange={ passwordChangeHandler }
+          onBlur={ validatePasswordHandler }
+        />
+      </div>
+      <div className={ classes.actions }>
+        <Button type="submit" disabled={ !formIsValid }>
+          Login
+        </Button>
+      </div>
+    </form>
   );
 };
 
