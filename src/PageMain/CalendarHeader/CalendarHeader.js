@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./CalendarHeader.module.css";
 import SearchedEvents from "./Search/SearchedEvents";
 import AddComponent from "./AddComponent";
+import AuthContext from "../../PageLogin/Store/AuthContext";
 
 const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData }) => {
   const [enteredEvent, setEnteredEvent] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const authContext = useContext(AuthContext);
   let onFilterEvents = [];
 
   const enteredEventHandler = (event) => setEnteredEvent(event);
   const startEditingHandler = () => setIsEditing(true);
   const stopEditingHandler = () => setIsEditing(false);
   const deleteEventDataHandler = (enteredEvent) => onDeleteEvent(enteredEvent);
+  const logoutHandler = () => {
+    authContext.logout();
+  };
 
   const saveEventDataHandler = (event) => {
     onSaveEventData(event);
@@ -44,6 +49,7 @@ const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData }) => {
             />
           </div>
         </div>
+        <button onClick={ logoutHandler }>Logout</button>
       </div>
       { isEditing && (
         <AddComponent
