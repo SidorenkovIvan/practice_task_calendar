@@ -1,26 +1,27 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./CalendarHeader.module.css";
 import SearchedEvents from "./Search/SearchedEvents";
 import AddComponent from "./AddComponent";
-import AuthContext from "../../PageLogin/Store/AuthContext";
 
 const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData }) => {
   const [enteredEvent, setEnteredEvent] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
   let onFilterEvents = [];
 
   const enteredEventHandler = (event) => setEnteredEvent(event);
   const startEditingHandler = () => setIsEditing(true);
   const stopEditingHandler = () => setIsEditing(false);
   const deleteEventDataHandler = (enteredEvent) => onDeleteEvent(enteredEvent);
-  const logoutHandler = () => {
-    authContext.logout();
-  };
 
   const saveEventDataHandler = (event) => {
     onSaveEventData(event);
     setIsEditing(false);
+  };
+
+  const redirectToProfile = () => {
+    navigate("/profile", { replace: true });
   };
 
   if (enteredEvent.target) {
@@ -49,7 +50,9 @@ const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData }) => {
             />
           </div>
         </div>
-        <button onClick={ logoutHandler }>Logout</button>
+        <div className={styles.logoutUi} onClick={ redirectToProfile }>
+          <div className={ styles.buttonLogout } />
+        </div>
       </div>
       { isEditing && (
         <AddComponent

@@ -13,10 +13,10 @@ function App() {
       { authContext.isLoggedIn && (<Route path='/calendar' element={ <PageMain/> }/>) }
       { !authContext.isLoggedIn && (<Route path='/auth' element={ <PageLogin/> }/>) }
       { authContext.isLoggedIn && (<Route path='/profile' element={ <PageProfile/> }/>) }
-      <Route path="*" element={ <Navigate to={ authContext.isLoggedIn ? "/calendar" : "/auth" }/> }/>
-      <Route path="/auth" element={ <Navigate to={ authContext.isLoggedIn ? "/calendar" : "/auth" }/> }/>
-      <Route path="/calendar" element={ <Navigate to={ authContext.isLoggedIn ? "/calendar" : "/auth" }/> }/>
-      <Route path="/profile" element={ <Navigate to={ authContext.isLoggedIn ? "/profile" : "/auth" }/> }/>
+      <Route path="*" element={ <Navigate to={ authContext.isLoggedIn ? "/calendar" : "/auth" } replace={ true }/> }/>
+      <Route path="/auth" element={ <Navigate to={ authContext.isLoggedIn ? "/calendar" : "/auth" } replace={ true }/> }/>
+      <Route path="/calendar" element={ <Navigate to={ authContext.isLoggedIn ? "/calendar" : "/auth" } replace={ true }/> }/>
+      <Route path="/profile" element={ <Navigate to={ authContext.isLoggedIn ? "/profile" : "/auth" } replace={ true }/> }/>
     </Routes>
   );
 }

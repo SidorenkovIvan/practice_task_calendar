@@ -27,21 +27,27 @@ const PageProfile = () => {
           "Content-Type": "application/json"
         }
       }).then(() => {
-        navigate("/calendar");
+      navigate("/calendar", { replace: true });
     });
   };
 
+  const onLogoutHandler = () => authContext.logout();
+
   return (
-    <div className={ styles.profile } onSubmit={ submitHandler }>
-      <form className={ styles.form }>
+    <div className={ styles.profile }>
+      <h1>My Profile</h1>
+      <form className={ styles.form } onSubmit={ submitHandler }>
         <div className={ styles.control }>
           <label htmlFor="new-password">New Password</label>
           <input type="password" id="new-password"/>
         </div>
         <div className={ styles.action }>
-          <button>Change Password</button>
+          <button type="submit">Change Password</button>
         </div>
       </form>
+      <div className={ styles.action }>
+        <button onClick={onLogoutHandler}>Logout</button>
+      </div>
     </div>
   );
 };

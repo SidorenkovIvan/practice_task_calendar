@@ -42,7 +42,7 @@ const PageLogin = () => {
     }).then(res => {
       setIsLoading(false);
       if (res.ok) {
-        return res.json;
+        return res.json();
       } else {
         return res.json().then(data => {
           let errorMessage = "Authentication failed!";
@@ -55,6 +55,7 @@ const PageLogin = () => {
         });
       }
     }).then((data) => {
+      console.log(data);
       authContext.login(data.idToken);
       navigate("/calendar", { replace: true });
     }).catch((error) => {
