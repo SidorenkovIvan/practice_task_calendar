@@ -11,7 +11,11 @@ const PageLogin = () => {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const switchAuthModeHandler = () => setIsLogin((prevState) => !prevState);
+  const switchAuthModeHandler = () => {
+    emailRef.current.value = "";
+    passwordRef.current.value = "";
+    setIsLogin((prevState) => !prevState);
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
