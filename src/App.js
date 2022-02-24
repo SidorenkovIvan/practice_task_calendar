@@ -1,39 +1,23 @@
-import React, { useEffect, useState } from "react";
-import AuthContext from "./PageMain/Data/AuthContext";
+import React, { useContext } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 import PageLogin from "./PageLogin/PageLogin";
 import PageMain from "./PageMain/PageMain";
+import PageProfile from "./PageProfile/PageProfile";
+import AuthContext from "./PageLogin/Store/AuthContext";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const storedUserLoggedInInformation = localStorage.getItem("isLoggedIn");
-
-    if (storedUserLoggedInInformation === "1") {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  const loginHandler = (email, password) => {
-    if (email === "test@test.com" && password === "1234567") {
-      localStorage.setItem("isLoggedIn", "1");
-      setIsLoggedIn(true);
-    }
-  };
-
-  const logoutHandler = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-  };
+  const authContext = useContext(AuthContext);
 
   return (
-    <AuthContext.Provider value={ {
-      isLoggedIn: isLoggedIn,
-      onLogout: logoutHandler
-    } }>
-      { !isLoggedIn && <PageLogin onLogin={ loginHandler }/> }
-      { isLoggedIn && <PageMain onLogout={ logoutHandler }/> }
-    </AuthContext.Provider>
+    <Routes>
+      { authContext.isLoggedIn && (<Route path='/calendar' element={ <PageMain/> }/>) }
+      { !authContext.isLoggedIn && (<Route path='/auth' element={ <PageLogin/> }/>) }
+      { authContext.isLoggedIn && (<Route path='/profile' element={ <PageProfile/> }/>) }
+      <Route path="*" element={ <Navigate to={ authContext.isLoggedIn ? "/calendar" : "/auth" } replace={ true }/> }/>
+      <Route path="/auth" element={ <Navigate to={ authContext.isLoggedIn ? "/calendar" : "/auth" } replace={ true }/> }/>
+      <Route path="/calendar" element={ <Navigate to={ authContext.isLoggedIn ? "/calendar" : "/auth" } replace={ true }/> }/>
+      <Route path="/profile" element={ <Navigate to={ authContext.isLoggedIn ? "/profile" : "/auth" } replace={ true }/> }/>
+    </Routes>
   );
 }
 

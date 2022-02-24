@@ -45,6 +45,7 @@
   background-color: transparent;
   background-repeat: no-repeat;
   float: right;
+  cursor: pointer;
 }
 
 .add {

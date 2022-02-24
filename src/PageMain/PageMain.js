@@ -21,12 +21,10 @@ function PageMain() {
 
   return (
     <>
-      <footer>
-        <CalendarHeader
-          items={ events }
-          onSaveEventData={ onSaveEventData }
-          onDeleteEvent={ onDeleteEvent }/>
-      </footer>
+      <CalendarHeader
+        items={ events }
+        onSaveEventData={ onSaveEventData }
+        onDeleteEvent={ onDeleteEvent }/>
       <Calendar
         items={ events }
         onSaveEventData={ onSaveEventData }

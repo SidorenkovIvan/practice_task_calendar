@@ -12,20 +12,23 @@ const Calendar = ({ items, onDeleteEvent, onSaveEventData }) => {
   const saveEventDataHandler = (enteredEvent) => onSaveEventData(enteredEvent);
   const deleteEventDataHandler = (enteredEvent) => onDeleteEvent(enteredEvent);
 
-  if (firstDayMonth !== 1) {
-    const daysInPrevMonth = daysInMonth(currentMonth - 1, currentYear);
-    let mondayLastWeekOfPrevMonth = daysInPrevMonth - (new Date(currentYear, currentMonth - 1, daysInPrevMonth).getDay()) + 1;
+  const getCalendarMonth = () => {
+    if (firstDayMonth !== 1) {
+      const daysInPrevMonth = daysInMonth(currentMonth - 1, currentYear);
+      let mondayLastWeekOfPrevMonth = daysInPrevMonth - (new Date(currentYear, currentMonth - 1, daysInPrevMonth).getDay()) + 1;
 
-    for (let i = mondayLastWeekOfPrevMonth; i <= daysInPrevMonth; i++) {
-      prevMonthDays.push([i, currentMonth - 1]);
+      for (let i = mondayLastWeekOfPrevMonth; i <= daysInPrevMonth; i++) {
+        prevMonthDays.push([i, currentMonth - 1]);
+      }
     }
-  }
 
-  const monthDays = [...new Array(daysInMonth(currentMonth, currentYear))].map((day, index) => [index + 1, currentMonth]);
-  let calendarArray = prevMonthDays.concat(monthDays);
-  const nextMonthDays = [...new Array(7 - calendarArray.length % 7)].map((day, index) => [index + 1, currentMonth + 1]);
+    const monthDays = [...new Array(daysInMonth(currentMonth, currentYear))].map((day, index) => [index + 1, currentMonth]);
+    let calendarArray = prevMonthDays.concat(monthDays);
+    const nextMonthDays = [...new Array(7 - calendarArray.length % 7)].map((day, index) => [index + 1, currentMonth + 1]);
+    return calendarArray.concat(nextMonthDays);
+  };
 
-  const previousMonth = () => {
+  const getPreviousMonth = () => {
     let month = currentMonth - 1;
 
     if (month < 0) {
@@ -37,7 +40,7 @@ const Calendar = ({ items, onDeleteEvent, onSaveEventData }) => {
     setCurrentMonth(month);
   };
 
-  const nextMonth = () => {
+  const getNextMonth = () => {
     let month = currentMonth + 1;
 
     if (month > 11) {
@@ -57,17 +60,17 @@ const Calendar = ({ items, onDeleteEvent, onSaveEventData }) => {
   return (
     <main className={ styles.calendar }>
       <div className={ styles.date }>
-        <div className={ styles.background } onClick={ previousMonth }>
+        <div className={ styles.background } onClick={ getPreviousMonth }>
           <div className={ styles.prev }/>
         </div>
         <p>{ `${ variables.MONTHS[currentMonth] } ${ currentYear }` }</p>
-        <div className={ styles.background } onClick={ nextMonth }>
+        <div className={ styles.background } onClick={ getNextMonth }>
           <div className={ styles.next }/>
         </div>
         <button className={ styles.today } onClick={ currentDate }>Today</button>
       </div>
       <div className={ styles.grid }>
-        { calendarArray.concat(nextMonthDays).map((item, index) =>
+        { getCalendarMonth().map((item, index) =>
           <CalendarItem
             day={ item[0] }
             month={ item[1] }

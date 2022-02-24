@@ -2,10 +2,10 @@ import React, { useState, useRef, useLayoutEffect } from "react";
 import styles from "./CalendarItemChange.module.css";
 import variables from "../Data/Data";
 
-const CalendarItemChange = (props) => {
+const CalendarItemChange = ({ title, members, year, month, day, onSaveData, onDeleteData, onCancel, description }) => {
   const titleRef = useRef();
   const membersRef = useRef();
-  const [enteredDescription, setEnteredDescription] = useState(props.description.toString());
+  const [enteredDescription, setEnteredDescription] = useState(description.toString());
   const formRef = React.useRef();
   const isOverflow = useIsOverflow(formRef);
 
@@ -16,46 +16,43 @@ const CalendarItemChange = (props) => {
     data.preventDefault();
 
     const addingEvent = {
-      title: props.title ?
-        props.title :
-        titleRef.current.value,
-      members: props.members ?
-        props.members :
-        membersRef.current.value,
+      title: title ? title : titleRef.current.value,
+      members: members ? members : membersRef.current.value,
       description: enteredDescription,
-      key: `${ props.month + 1 }/${ props.day }/${ props.year }`,
-      date: `${ props.month + 1 }/${ props.day }/${ props.year }`
+      key: `${ month + 1 }/${ day }/${ year }`,
+      date: `${ month + 1 }/${ day }/${ year }`
     };
 
-    props.onSaveData(addingEvent);
+    onSaveData(addingEvent);
   };
 
   const deleteHandler = (data) => {
     data.preventDefault();
 
     const deleteEvent = {
-      date: `${ props.month + 1 }/${ props.day }/${ props.year }`
+      date: `${ month + 1 }/${ day }/${ year }`
     };
 
-    props.onDeleteData(deleteEvent);
+    onDeleteData(deleteEvent);
   };
 
 
   return (
     <form onSubmit={ submitHandler }>
       <div
-        className={ `${ isOverflow && styles.form2 }
+        className={
+          `${ isOverflow && styles.form2 }
           ${ !isOverflow && styles.form }` }
         ref={ formRef }
       >
-        <button className={ styles.buttonClose } type="button" onClick={ props.onCancel }/>
-        { props.title ? <>
-          <h3>{ props.title }</h3>
-          <p>{ `${ props.day } ${ variables.MONTHS[props.month] }` }</p>
+        <button className={ styles.buttonClose } type="button" onClick={ onCancel }/>
+        { title ? <>
+          <h3>{ title }</h3>
+          <p>{ `${ day } ${ variables.MONTHS[month] }` }</p>
         </> : <input type="text" placeholder="Title" ref={ titleRef }/> }
-        { props.members ? <>
+        { members ? <>
           <p>Members:</p>
-          <p>{ props.members }</p>
+          <p>{ members }</p>
         </> : <input type="text" placeholder="Members" ref={ membersRef }/> }
         <textarea className={ styles.description } value={ enteredDescription } placeholder="Description"
                   onChange={ descriptionChangeHandler }/>
@@ -68,7 +65,7 @@ const CalendarItemChange = (props) => {
   );
 };
 
-const useIsOverflow = (ref, callback) => {
+const useIsOverflow = (ref) => {
   const [isOverflow, setIsOverflow] = React.useState(false);
 
   useLayoutEffect(() => {
@@ -77,15 +74,12 @@ const useIsOverflow = (ref, callback) => {
     const trigger = () => {
       const hasOverflow = window.innerWidth < current.getBoundingClientRect().right;
       setIsOverflow(hasOverflow);
-      if (callback) {
-        callback(hasOverflow);
-      }
     };
 
     if (current) {
       trigger();
     }
-  }, [callback, ref]);
+  }, [ref]);
 
   return isOverflow;
 };

@@ -1,100 +1,99 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useRef, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import classes from "./PageLogin.module.css";
-import Button from "./UI/Button";
+import AuthContext from "./Store/AuthContext";
 
-const emailReducer = (state, action) => {
-  if (action.type === "USER_INPUT") {
-    return { value: action.val, isValid: action.val.includes("@") };
-  }
+const PageLogin = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  if (action.type === "INPUT_BLUR") {
-    return { value: state.value, isValid: state.value.includes("@") };
-  }
-
-  return { value: "", isValid: false };
-};
-
-const passwordReducer = (state, action) => {
-  if (action.type === "USER_INPUT") {
-    return { value: action.val, isValid: action.val.trim().length > 6 };
-  }
-
-  if (action.type === "INPUT_BLUR") {
-    return { value: state.value, isValid: state.value.trim().length > 6 };
-  }
-
-  return { value: "", isValid: false };
-};
-
-const PageLogin = (props) => {
-  const [formIsValid, setFormIsValid] = useState(false);
-  const [emailState, dispatchEmail] = useReducer(emailReducer, {
-    value: "",
-    isValid: false
-  });
-  const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
-    value: "",
-    isValid: false
-  });
-  const { isValid: emailIsValid } = emailState;
-  const { isValid: passwordIsValid } = passwordState;
-
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      console.log("Checking form validity");
-      setFormIsValid(emailIsValid && passwordIsValid);
-    }, 500);
-
-    return () => {
-      clearTimeout(identifier);
-    };
-  }, [emailIsValid, passwordIsValid]);
-
-  const emailChangeHandler = (event) => dispatchEmail({ type: "USER_INPUT", val: event.target.value });
-  const passwordChangeHandler = (event) => dispatchPassword({ type: "USER_INPUT", val: event.target.value });
-  const validateEmailHandler = () => dispatchEmail({ type: "INPUT_BLUR" });
-  const validatePasswordHandler = () => dispatchPassword({ type: "INPUT_BLUR" });
+  const switchAuthModeHandler = () => {
+    emailRef.current.value = "";
+    passwordRef.current.value = "";
+    setIsLogin((prevState) => !prevState);
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+
+    const enteredEmail = emailRef.current.value;
+    const enteredPassword = passwordRef.current.value;
+
+    //Validation
+
+    setIsLoading(true);
+    let url;
+    if (isLogin) {
+      url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB08w4jR6ODCfbc96jMuUVg5GKe1jJK7Ek";
+    } else {
+      url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB08w4jR6ODCfbc96jMuUVg5GKe1jJK7Ek";
+    }
+
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+        returnSecureToken: true
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => {
+      setIsLoading(false);
+      if (res.ok) {
+        return res.json();
+      } else {
+        return res.json().then(data => {
+          let errorMessage = "Authentication failed!";
+
+          if (data && data.error && data.error.message) {
+            errorMessage = data.error.message;
+          }
+
+          throw new Error(errorMessage);
+        });
+      }
+    }).then((data) => {
+      console.log(data);
+      authContext.login(data.idToken);
+      navigate("/calendar", { replace: true });
+    }).catch((error) => {
+      alert(error.message);
+    });
   };
 
   return (
-    <div className={ `${ classes.login } ${ classes.card }` }>
-      <form onSubmit={ submitHandler }>
-        <div
-          className={ `${ classes.control } ${
-            emailState.isValid === false ? classes.invalid : ""
-          }` }>
-          <label htmlFor="email">E-Mail</label>
-          <input
-            type="email"
-            id="email"
-            value={ emailState.value }
-            onChange={ emailChangeHandler }
-            onBlur={ validateEmailHandler }/>
-        </div>
-        <div
-          className={ `${ classes.control } ${
-            passwordState.isValid === false ? classes.invalid : ""
-          }` }>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={ passwordState.value }
-            onChange={ passwordChangeHandler }
-            onBlur={ validatePasswordHandler }
-          />
-        </div>
-        <div className={ classes.actions }>
-          <Button type="submit" disabled={ !formIsValid }>
-            Login
-          </Button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={ submitHandler } className={ `${ classes.login } ${ classes.card }` }>
+      <p>{ isLogin ? "Sign In" : "Sign Up" }</p>
+      <div className={ classes.control }>
+        <label htmlFor="email">E-Mail</label>
+        <input type="email" id="email" required ref={ emailRef }/>
+      </div>
+      <div className={ classes.control }>
+        <label htmlFor="password">Password</label>
+        <input type="password" id="password" required ref={ passwordRef }/>
+      </div>
+      <div className={ classes.actions }>
+        { !isLoading &&
+          <button
+            className={ classes.button }
+            type="submit">
+            { isLogin ? "Login" : "Create Account" }
+          </button>
+        }
+        { isLoading && <p>Sending request...</p> }
+        <button
+          className={ classes.toggle }
+          onClick={ switchAuthModeHandler }
+        >{ isLogin ? "Create new account" : "Login with existing account" }
+        </button>
+      </div>
+    </form>
   );
 };
 

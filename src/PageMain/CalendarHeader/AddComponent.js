@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import styles from "./AddComponent.module.css";
 
-const AddComponent = (props) => {
+const AddComponent = ({ onCancel, onSaveData }) => {
   const enteredInput = useRef();
 
   const submitHandler = (data) => {
@@ -15,12 +15,12 @@ const AddComponent = (props) => {
       date: `${ new Date().getMonth() + 1 }/${ new Date().getDate() }/${ new Date().getFullYear() }`
     };
 
-    props.onSaveData(addingEvent);
+    onSaveData(addingEvent);
   };
 
   return (
     <form className={ styles.form } onSubmit={ submitHandler }>
-      <button className={ styles.close } onClick={ props.onCancel }/>
+      <button className={ styles.close } onClick={ onCancel }/>
       <input type="text" placeholder="5 march, birthday" ref={ enteredInput }/>
       <button className={ styles.add } type="submit">Add</button>
     </form>

@@ -1,29 +1,35 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./CalendarHeader.module.css";
 import SearchedEvents from "./Search/SearchedEvents";
 import AddComponent from "./AddComponent";
 
-const CalendarHeader = (props) => {
+const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData }) => {
   const [enteredEvent, setEnteredEvent] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
   let onFilterEvents = [];
 
   const enteredEventHandler = (event) => setEnteredEvent(event);
   const startEditingHandler = () => setIsEditing(true);
   const stopEditingHandler = () => setIsEditing(false);
-  const deleteEventDataHandler = (enteredEvent) => props.onDeleteEvent(enteredEvent);
+  const deleteEventDataHandler = (enteredEvent) => onDeleteEvent(enteredEvent);
 
   const saveEventDataHandler = (event) => {
-    props.onSaveEventData(event);
+    onSaveEventData(event);
     setIsEditing(false);
   };
 
+  const redirectToProfile = () => {
+    navigate("/profile", { replace: true });
+  };
+
   if (enteredEvent.target) {
-    onFilterEvents = props.items.filter((event) => event.title.includes(enteredEvent.target.value));
+    onFilterEvents = items.filter((event) => event.title.includes(enteredEvent.target.value));
   }
 
   return (
-    <>
+    <header>
       <div className={ styles.header }>
         <div className={ styles.actions }>
           <button className={ styles.actionsButtons } onClick={ startEditingHandler }>Add</button>
@@ -44,13 +50,16 @@ const CalendarHeader = (props) => {
             />
           </div>
         </div>
+        <div className={styles.logoutUi} onClick={ redirectToProfile }>
+          <div className={ styles.buttonLogout } />
+        </div>
       </div>
       { isEditing && (
         <AddComponent
           onSaveData={ saveEventDataHandler }
           onCancel={ stopEditingHandler }/>
       ) }
-    </>
+    </header>
   );
 };
 
