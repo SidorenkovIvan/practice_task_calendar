@@ -61,7 +61,7 @@ const PageLogin = () => {
     }).then((data) => {
       console.log(data);
       authContext.login(data.idToken);
-      navigate("/calendar", { replace: true });
+      navigate("/menu/calendar", { replace: true });
     }).catch((error) => {
       alert(error.message);
     });

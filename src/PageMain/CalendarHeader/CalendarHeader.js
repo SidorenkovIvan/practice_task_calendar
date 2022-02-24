@@ -21,7 +21,7 @@ const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData }) => {
   };
 
   const redirectToProfile = () => {
-    navigate("/profile", { replace: true });
+    navigate("/menu/profile", { replace: true });
   };
 
   if (enteredEvent.target) {
