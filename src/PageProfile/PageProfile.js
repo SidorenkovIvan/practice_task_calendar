@@ -1,7 +1,9 @@
 import React, { useContext, useRef } from "react";
-import styles from "./PageProfile.module.css";
-import AuthContext from "../PageLogin/Store/AuthContext";
 import { useNavigate } from "react-router-dom";
+
+// better use one style of imports(absolute are preferred. but in this case relative path for css is good)
+import AuthContext from "../PageLogin/Store/AuthContext";
+import styles from "./PageProfile.module.css";
 
 const PageProfile = () => {
   const newPasswordRef = useRef();
@@ -14,6 +16,7 @@ const PageProfile = () => {
     const enteredNewPassword = newPasswordRef.current.value;
     //validation
 
+      // better put this address into vars
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyB08w4jR6ODCfbc96jMuUVg5GKe1jJK7Ek",
       {

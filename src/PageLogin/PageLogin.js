@@ -1,5 +1,6 @@
 import React, { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
 import classes from "./PageLogin.module.css";
 import AuthContext from "./Store/AuthContext";
 
@@ -17,9 +18,10 @@ const PageLogin = () => {
     setIsLogin((prevState) => !prevState);
   };
 
+  // TODO: not sure about this view of code bellow(not so well readable). but good for right now
   const submitHandler = (event) => {
     event.preventDefault();
-
+    // we have wrong rules of linter. I should use not dabble quotes bellow!
     const enteredEmail = emailRef.current.value;
     const enteredPassword = passwordRef.current.value;
 
@@ -90,7 +92,8 @@ const PageLogin = () => {
         <button
           className={ classes.toggle }
           onClick={ switchAuthModeHandler }
-        >{ isLogin ? "Create new account" : "Login with existing account" }
+        >
+          { isLogin ? "Create new account" : "Login with existing account" }
         </button>
       </div>
     </form>

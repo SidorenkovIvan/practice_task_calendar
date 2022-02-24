@@ -21,7 +21,7 @@
 .control label {
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: #353336;
+  color: #353336; /* let's use vars for colors etc. */
   display: block;
 }
 
