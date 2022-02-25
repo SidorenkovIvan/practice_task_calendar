@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const PageMenu = () => {
   return (
-    <>
+    <div className={ styles.container }>
       <div className={ styles.mainRow }>
         <header className={ styles.columnMenu }>
           <div className={ styles.logo }/>
@@ -31,16 +31,46 @@ const PageMenu = () => {
             <button>Subscribe</button>
           </div>
           <div className={ styles.grid }>
-            <div>
+            <div className={ styles.info }>
+              <h2>Hello you</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit</p>
+            </div>
+            <div className={ styles.info }>
+              <h2>Some info</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit</p>
+            </div>
+            <div className={ styles.info }>
+              <h2>Whats new</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit</p>
             </div>
           </div>
         </main>
       </div>
       <hr/>
-      <footer>
-
+      <footer className={ styles.footerRow }>
+        <div className={ styles.columnFooter }>
+          <div className={ styles.links }>
+            <Link to="/menu/profile">Privacy Policy</Link>
+            <p className={ styles.divider }> | </p>
+            <Link to="/menu/calendar">Terms of use</Link>
+            <p className={ styles.divider }> | </p>
+            <Link to="/menu/calendar">Contact</Link>
+          </div>
+          <p className={ styles.footerText }>@ 2015 My Company, all rights reserved.</p>
+        </div>
+        <div className={ styles.rowSocialMedia }>
+            <div className={ styles.icons }/>
+            <div className={ `${styles.icons} ${styles.iconGoogle}` }/>
+            <div className={ `${styles.icons} ${styles.iconTwitter}` }/>
+        </div>
       </footer>
-    </>
+    </div>
   );
 };
 
