@@ -1,7 +1,8 @@
 import React, { useContext, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
 import styles from "./PageProfile.module.css";
 import AuthContext from "../PageLogin/Store/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const PageProfile = () => {
   const newPasswordRef = useRef();
@@ -46,7 +47,7 @@ const PageProfile = () => {
         </div>
       </form>
       <div className={ styles.action }>
-        <button onClick={onLogoutHandler}>Logout</button>
+        <button onClick={ onLogoutHandler }>Logout</button>
       </div>
     </div>
   );

@@ -1,0 +1,236 @@
+.container {
+  margin: 4rem;
+}
+
+.mainRow {
+  display: flex;
+}
+
+.columnMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnMenu ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 5rem;
+}
+
+.columnMenu ul li {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.columnInfo {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border-radius: 90px;
+  align-self: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.header {
+  border: 1px solid #000;
+  min-height: 10rem;
+}
+
+.header h2 {
+  text-align: center;
+}
+
+.iconAccount {
+  height: 24px;
+  background-image: url("/public/account.png");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  padding: 0 1rem;
+  border: none;
+  align-self: center;
+}
+
+.rowInput {
+  display: flex;
+  flex-direction: row;
+  margin: 2rem 0;
+  align-self: end;
+}
+
+.rowInput input {
+  border: 2px solid #000;
+  margin-right: 1rem;
+  margin-left: 0.5rem;
+  padding: 3px;
+  height: 16px;
+}
+
+.rowInput button {
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 0 1rem;
+  height: 25px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2rem;
+}
+
+hr {
+  border-top: 3px solid #000;
+  margin: 0;
+}
+
+.divider {
+  font-weight: bold;
+  margin: 0 3px;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  text-decoration: underline;
+  margin-top: 10px;
+}
+
+.links a {
+  color: dodgerblue;
+}
+
+.footerText {
+  font-size: 12px;
+}
+
+.columnFooter {
+  display: flex;
+  flex-direction: column;
+}
+
+.rowSocialMedia {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  margin-top: 10px;
+  margin-left: auto;
+}
+
+.info {
+  border: 1px solid #000;
+  padding: 0 20px;
+  margin-bottom: 2rem;
+}
+
+.icons {
+  height: 24px;
+  background-image: url("/public/facebook.png");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  padding: 0 1rem;
+  border: none;
+  align-self: center;
+  margin: 0 5px;
+}
+
+.iconGoogle {
+  background-image: url("/public/google.png");
+}
+
+.iconTwitter {
+  background-image: url("/public/twitter.png");
+}
+
+.footerRow {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 850px) {
+  .container {
+    margin: 2rem;
+  }
+
+  .mainRow {
+    display: inline;
+  }
+
+  .columnMenu {
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .columnMenu ul {
+    display: flex;
+    margin: 2.3rem 0 0 2rem;
+  }
+
+  .columnMenu ul li {
+    margin: 0 1rem;
+  }
+
+  @media (max-width: 700px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .iconAccount {
+      display: none;
+    }
+
+    .columnMenu a {
+      color: dodgerblue;
+      text-decoration: underline;
+    }
+
+    .columnMenu ul li {
+      margin: 3px;
+    }
+
+    @media (max-width: 600px) {
+      .columnMenu {
+        flex-direction: column-reverse;
+      }
+
+      .columnMenu ul {
+        justify-content: center;
+        margin-right: 40px;
+        margin-bottom: 15px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .rowInput label {
+        display: block;
+        grid-column: 1 / -1;
+        padding-bottom: 10px;
+        padding-left: 10px;
+      }
+
+      .rowInput {
+        display: grid;
+        grid-template-columns: 65% 35%;
+        align-self: flex-start;
+      }
+
+      .footerRow {
+        flex-direction: column;
+      }
+    }
+  }
+}

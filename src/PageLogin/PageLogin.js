@@ -1,6 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import classes from "./PageLogin.module.css";
+
+import classes from "./PageLogin.module.scss";
 import AuthContext from "./Store/AuthContext";
 
 const PageLogin = () => {
@@ -61,7 +62,7 @@ const PageLogin = () => {
     }).then((data) => {
       console.log(data);
       authContext.login(data.idToken);
-      navigate("/calendar", { replace: true });
+      navigate("/menu", { replace: true });
     }).catch((error) => {
       alert(error.message);
     });
@@ -82,7 +83,8 @@ const PageLogin = () => {
         { !isLoading &&
           <button
             className={ classes.button }
-            type="submit">
+            type="submit"
+          >
             { isLogin ? "Login" : "Create Account" }
           </button>
         }
@@ -90,7 +92,8 @@ const PageLogin = () => {
         <button
           className={ classes.toggle }
           onClick={ switchAuthModeHandler }
-        >{ isLogin ? "Create new account" : "Login with existing account" }
+        >
+          { isLogin ? "Create new account" : "Login with existing account" }
         </button>
       </div>
     </form>

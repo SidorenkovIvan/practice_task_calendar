@@ -1,8 +1,9 @@
 import React from "react";
+
 import styles from "./SearchedEvents.module.css";
 import Event from "./Event";
 
-const SearchedEvents = ({ filteredEvents, onSaveEvent, onDeleteEvent}) => {
+const SearchedEvents = ({ filteredEvents, onSaveEvent, onDeleteEvent }) => {
   const propsLength = filteredEvents.length;
   const onSaveDataHandler = (event) => onSaveEvent(event);
   const onDeleteDataHandler = (event) => onDeleteEvent(event);
