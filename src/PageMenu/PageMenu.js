@@ -1,6 +1,7 @@
 import React from "react";
-import styles from "./PageMenu.module.css";
 import { Link } from "react-router-dom";
+
+import styles from "./PageMenu.module.css";
 
 const PageMenu = () => {
   return (
@@ -35,19 +36,22 @@ const PageMenu = () => {
               <h2>Hello you</h2>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit</p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
+              </p>
             </div>
             <div className={ styles.info }>
               <h2>Some info</h2>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit</p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
+              </p>
             </div>
             <div className={ styles.info }>
               <h2>Whats new</h2>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit</p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit
+              </p>
             </div>
           </div>
         </main>
@@ -65,9 +69,9 @@ const PageMenu = () => {
           <p className={ styles.footerText }>@ 2015 My Company, all rights reserved.</p>
         </div>
         <div className={ styles.rowSocialMedia }>
-            <div className={ styles.icons }/>
-            <div className={ `${styles.icons} ${styles.iconGoogle}` }/>
-            <div className={ `${styles.icons} ${styles.iconTwitter}` }/>
+          <div className={ styles.icons }/>
+          <div className={ `${ styles.icons } ${ styles.iconGoogle }` }/>
+          <div className={ `${ styles.icons } ${ styles.iconTwitter }` }/>
         </div>
       </footer>
     </div>

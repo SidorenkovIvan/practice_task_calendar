@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import styles from "./CalendarHeader.module.css";
 import SearchedEvents from "./Search/SearchedEvents";
 import AddComponent from "./AddComponent";
@@ -50,14 +51,15 @@ const CalendarHeader = ({ items, onDeleteEvent, onSaveEventData }) => {
             />
           </div>
         </div>
-        <div className={styles.logoutUi} onClick={ redirectToProfile }>
-          <div className={ styles.buttonLogout } />
+        <div className={ styles.logoutUi } onClick={ redirectToProfile }>
+          <div className={ styles.buttonLogout }/>
         </div>
       </div>
       { isEditing && (
         <AddComponent
           onSaveData={ saveEventDataHandler }
-          onCancel={ stopEditingHandler }/>
+          onCancel={ stopEditingHandler }
+        />
       ) }
     </header>
   );
