@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import classes from "./PageLogin.module.css";
+import classes from "./PageLogin.module.scss";
 import AuthContext from "./Store/AuthContext";
 
 const PageLogin = () => {

@@ -1,3 +1,14 @@
+$white: #fff;
+$inputBorder: #ccc;
+$focusBorder: #4f005f;
+$inputFocusBack: #f6dbfc;
+$invalidBorder: #ff0000;
+$invalidBack: #fbdada;
+$buttonActive: #741188;
+$buttonDisabled: #666666;
+$toggle: #9f5ccc;
+$toggleHover: #ae82cc;
+
 .login {
   width: 90%;
   max-width: 40rem;
@@ -13,7 +24,7 @@
 }
 
 .card {
-  background: white;
+  background: $white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
 }
@@ -37,18 +48,18 @@
   font: inherit;
   padding: 0.35rem 0.35rem;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid $inputBorder;
 }
 
 .control input:focus {
   outline: none;
-  border-color: #4f005f;
-  background: #f6dbfc;
+  border-color: $focusBorder;
+  background: $inputFocusBack;
 }
 
 .control.invalid input {
-  border-color: red;
-  background: #fbdada;
+  border-color: $invalidBorder;
+  background: $invalidBack;
 }
 
 .actions {
@@ -61,9 +72,9 @@
   font: inherit;
   width: 40%;
   align-self: center;
-  border: 1px solid #4f005f;
-  background: #4f005f;
-  color: white;
+  border: 1px solid $focusBorder;
+  background: $focusBorder;
+  color: $white;
   padding: 0.75rem 3.5rem;
   margin-top: 1rem;
   cursor: pointer;
@@ -73,8 +84,8 @@
 
 .button:hover,
 .button:active {
-  background: #741188;
-  border-color: #741188;
+  background: $buttonActive;
+  border-color: $buttonActive;
 }
 
 .button:focus {
@@ -85,16 +96,16 @@ button:disabled,
 button:focus:disabled,
 button:hover:disabled,
 button:active:disabled {
-  background: #ccc;
-  border-color: #ccc;
-  color: #666666;
+  background: $inputBorder;
+  border-color: $inputBorder;
+  color: $buttonDisabled;
   cursor: not-allowed;
 }
 
 .actions .toggle {
   margin-top: 1rem;
   background-color: transparent;
-  color: #9f5ccc;
+  color: $toggle;
   border: none;
   padding: 0.15rem 1.5rem;
   width: auto;
@@ -103,5 +114,5 @@ button:active:disabled {
 
 .actions .toggle:hover {
   background-color: transparent;
-  color: #ae82cc;
+  color: $toggleHover;
 }
