@@ -60,6 +60,14 @@ export default {
     4: "Friday",
     5: "Saturday",
     6: "Sunday"
+  },
+
+  FIREBASE_REQUESTS: {
+    key: "AIzaSyB08w4jR6ODCfbc96jMuUVg5GKe1jJK7Ek",
+    signIn: "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=",
+    signUp: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=",
+    accountUpdate: "https://identitytoolkit.googleapis.com/v1/accounts:update?key=",
+    accountLookup: "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key="
   }
 };
 

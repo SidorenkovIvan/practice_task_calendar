@@ -56,7 +56,7 @@ const PageMenu = () => {
           </div>
         </main>
       </div>
-      <hr/>
+      <hr className={ styles.hr }/>
       <footer className={ styles.footerRow }>
         <div className={ styles.columnFooter }>
           <div className={ styles.links }>

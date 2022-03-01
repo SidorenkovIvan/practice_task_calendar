@@ -1,8 +1,10 @@
 import React, { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import classes from "./PageLogin.module.scss";
 import AuthContext from "./Store/AuthContext";
+import { authActions } from "./Store/Redux";
 
 const PageLogin = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,6 +12,7 @@ const PageLogin = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const authContext = useContext(AuthContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const switchAuthModeHandler = () => {
@@ -62,6 +65,7 @@ const PageLogin = () => {
     }).then((data) => {
       console.log(data);
       authContext.login(data.idToken);
+      dispatch(authActions.login());
       navigate("/menu", { replace: true });
     }).catch((error) => {
       alert(error.message);
