@@ -39,7 +39,7 @@
 
 .close {
   border: none;
-  background-image: url(/public/close.png);
+  background-image: url(/src/assets/images/close.png);
   padding: 1rem 1rem;
   margin-top: 0.5rem;
   background-color: transparent;

@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import PageLogin from "./PageLogin/PageLogin";
 import PageMain from "./PageMain/PageMain";
@@ -9,6 +10,8 @@ import PageMenu from "./PageMenu/PageMenu";
 
 function App() {
   const authContext = useContext(AuthContext);
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  console.log(isAuth);
 
   return (
     <Routes>
@@ -19,21 +22,21 @@ function App() {
       <Route
         path="/menu"
         element={ <Navigate
-          to={ authContext.isLoggedIn ? "/menu" : "/auth" }
+          to={ isAuth ? "/menu" : "/auth" }
           replace={ true }
         /> }
       />
       <Route
         path="*"
         element={ <Navigate
-          to={ authContext.isLoggedIn ? "/menu/calendar" : "/auth" }
+          to={ authContext.isLoggedIn ? "/menu" : "/auth" }
           replace={ true }
         /> }
       />
       <Route
         path="/auth"
         element={ <Navigate
-          to={ authContext.isLoggedIn ? "/menu/calendar" : "/auth" }
+          to={ authContext.isLoggedIn ? "/menu" : "/auth" }
           replace={ true }
         /> }
       />

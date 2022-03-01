@@ -51,7 +51,7 @@
 
 .iconAccount {
   height: 24px;
-  background-image: url("/public/account.png");
+  background-image: url("/src/assets/images/account.png");
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0 0;
@@ -89,7 +89,7 @@
   column-gap: 2rem;
 }
 
-hr {
+.hr {
   border-top: 3px solid #000;
   margin: 0;
 }
@@ -135,7 +135,7 @@ hr {
 
 .icons {
   height: 24px;
-  background-image: url("/public/facebook.png");
+  background-image: url("/src/assets/images/facebook.png");
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0 0;
@@ -146,11 +146,11 @@ hr {
 }
 
 .iconGoogle {
-  background-image: url("/public/google.png");
+  background-image: url("/src/assets/images/google.png");
 }
 
 .iconTwitter {
-  background-image: url("/public/twitter.png");
+  background-image: url("/src/assets/images/twitter.png");
 }
 
 .footerRow {
